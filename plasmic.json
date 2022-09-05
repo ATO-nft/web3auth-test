@@ -1,0 +1,128 @@
+{
+  "platform": "react",
+  "code": {
+    "lang": "ts",
+    "scheme": "blackbox",
+    "reactRuntime": "classic"
+  },
+  "style": {
+    "scheme": "css-modules",
+    "defaultStyleCssFilePath": "plasmic/plasmic__default_style.css"
+  },
+  "images": {
+    "scheme": "files",
+    "publicDir": "../../public",
+    "publicUrlPrefix": "/static/"
+  },
+  "tokens": {
+    "scheme": "theo",
+    "tokensFilePath": "plasmic-tokens.theo.json"
+  },
+  "srcDir": "src/components",
+  "defaultPlasmicDir": "./plasmic",
+  "projects": [
+    {
+      "projectId": "54HMz7Hvd2hKuAsezVhBVr",
+      "projectApiToken": "lKQrDxohORmgWHex2358EzhUooLgkSP0gLBYMzjb9eR4gwaqfumtfPSj6WjXO4IcwovDEIkXpMWS8IeYSQYQ",
+      "projectName": "web3auth-test",
+      "version": "latest",
+      "cssFilePath": "plasmic/web_3_auth_test/plasmic_web_3_auth_test.module.css",
+      "components": [
+        {
+          "id": "evFdljHsKY7L5",
+          "name": "Homepage",
+          "type": "managed",
+          "projectId": "54HMz7Hvd2hKuAsezVhBVr",
+          "renderModuleFilePath": "plasmic/web_3_auth_test/PlasmicHomepage.tsx",
+          "importSpec": {
+            "modulePath": "Homepage.tsx"
+          },
+          "cssFilePath": "plasmic/web_3_auth_test/PlasmicHomepage.module.css",
+          "scheme": "blackbox",
+          "componentType": "page"
+        },
+        {
+          "id": "2absIEKb81Nff",
+          "name": "Button",
+          "type": "managed",
+          "projectId": "54HMz7Hvd2hKuAsezVhBVr",
+          "renderModuleFilePath": "plasmic/web_3_auth_test/PlasmicButton.tsx",
+          "importSpec": {
+            "modulePath": "Button.tsx"
+          },
+          "cssFilePath": "plasmic/web_3_auth_test/PlasmicButton.module.css",
+          "scheme": "blackbox",
+          "componentType": "component",
+          "plumeType": "button"
+        },
+        {
+          "id": "y6oMpGPQpSdLN",
+          "name": "Header",
+          "type": "managed",
+          "projectId": "54HMz7Hvd2hKuAsezVhBVr",
+          "renderModuleFilePath": "plasmic/web_3_auth_test/PlasmicHeader.tsx",
+          "importSpec": {
+            "modulePath": "Header.tsx"
+          },
+          "cssFilePath": "plasmic/web_3_auth_test/PlasmicHeader.module.css",
+          "scheme": "blackbox",
+          "componentType": "component"
+        },
+        {
+          "id": "gSxAtSkc_B2bx",
+          "name": "LoginButton",
+          "type": "managed",
+          "projectId": "54HMz7Hvd2hKuAsezVhBVr",
+          "renderModuleFilePath": "plasmic/web_3_auth_test/PlasmicLoginButton.tsx",
+          "importSpec": {
+            "modulePath": "LoginButton.tsx"
+          },
+          "cssFilePath": "plasmic/web_3_auth_test/PlasmicLoginButton.module.css",
+          "scheme": "blackbox",
+          "componentType": "component"
+        }
+      ],
+      "icons": [
+        {
+          "id": "x5R3V1qKIDRpC",
+          "name": "ChecksvgIcon",
+          "moduleFilePath": "plasmic/web_3_auth_test/icons/PlasmicIcon__Checksvg.tsx"
+        },
+        {
+          "id": "jOZ57IuiaExMg",
+          "name": "IconIcon",
+          "moduleFilePath": "plasmic/web_3_auth_test/icons/PlasmicIcon__Icon.tsx"
+        }
+      ],
+      "images": [
+        {
+          "id": "giW_NORDPg6I9",
+          "name": "thistle.jpeg",
+          "filePath": "plasmic/web_3_auth_test/images/thistlejpeg.jpeg"
+        }
+      ],
+      "indirect": false,
+      "globalContextsFilePath": "",
+      "codeComponents": [
+        {
+          "id": "wqCy8LFEO54gw",
+          "name": "PlasmicHead",
+          "componentImportPath": "@plasmicapp/react-web"
+        }
+      ]
+    }
+  ],
+  "globalVariants": {
+    "variantGroups": [
+      {
+        "id": "dYbhPAqG0g9Hu",
+        "name": "Screen",
+        "projectId": "54HMz7Hvd2hKuAsezVhBVr",
+        "contextFilePath": "plasmic/web_3_auth_test/PlasmicGlobalVariant__Screen.tsx"
+      }
+    ]
+  },
+  "wrapPagesWithGlobalContexts": true,
+  "cliVersion": "0.1.186",
+  "$schema": "https://unpkg.com/@plasmicapp/cli@0.1.186/dist/plasmic.schema.json"
+}

@@ -1,0 +1,79 @@
+{
+  "projects": [
+    {
+      "projectId": "54HMz7Hvd2hKuAsezVhBVr",
+      "version": "latest",
+      "dependencies": {},
+      "lang": "ts",
+      "fileLocks": [
+        {
+          "type": "globalVariant",
+          "assetId": "dYbhPAqG0g9Hu",
+          "checksum": "352f161df080175e1915d4224c20639b"
+        },
+        {
+          "assetId": "54HMz7Hvd2hKuAsezVhBVr",
+          "type": "projectCss",
+          "checksum": "a4d83c24f53c5fc6df76ec3c5e8856d8"
+        },
+        {
+          "type": "renderModule",
+          "assetId": "evFdljHsKY7L5",
+          "checksum": "21a7156596baa59103e35ac1b61a61e5"
+        },
+        {
+          "type": "cssRules",
+          "assetId": "evFdljHsKY7L5",
+          "checksum": "21a7156596baa59103e35ac1b61a61e5"
+        },
+        {
+          "type": "renderModule",
+          "assetId": "2absIEKb81Nff",
+          "checksum": "c8059d0badc2e0aca83accb71a6d2035"
+        },
+        {
+          "type": "cssRules",
+          "assetId": "2absIEKb81Nff",
+          "checksum": "c8059d0badc2e0aca83accb71a6d2035"
+        },
+        {
+          "type": "renderModule",
+          "assetId": "y6oMpGPQpSdLN",
+          "checksum": "a571fca16f48924fc6b382d845f17f45"
+        },
+        {
+          "type": "cssRules",
+          "assetId": "y6oMpGPQpSdLN",
+          "checksum": "a571fca16f48924fc6b382d845f17f45"
+        },
+        {
+          "type": "renderModule",
+          "assetId": "gSxAtSkc_B2bx",
+          "checksum": "18486bc69e3a8811f127e443bc0284fd"
+        },
+        {
+          "type": "cssRules",
+          "assetId": "gSxAtSkc_B2bx",
+          "checksum": "18486bc69e3a8811f127e443bc0284fd"
+        },
+        {
+          "type": "icon",
+          "assetId": "x5R3V1qKIDRpC",
+          "checksum": "2f807e8fc5aca206a8dd085af965577a"
+        },
+        {
+          "type": "icon",
+          "assetId": "jOZ57IuiaExMg",
+          "checksum": "ff8a937465146d2d584e23b514fa6355"
+        },
+        {
+          "type": "image",
+          "assetId": "giW_NORDPg6I9",
+          "checksum": "bebf97d2c3a02f95f5cf1f31b91e4d5a"
+        }
+      ],
+      "codegenVersion": "0.0.1"
+    }
+  ],
+  "cliVersion": "0.1.186"
+}

@@ -31,7 +31,6 @@ import {
   deriveRenderOpts,
   ensureGlobalVariants
 } from "@plasmicapp/react-web";
-import LoginButton from "../../LoginButton"; // plasmic-import: gSxAtSkc_B2bx/component
 import Button from "../../Button"; // plasmic-import: 2absIEKb81Nff/component
 
 import "@plasmicapp/react-web/lib/plasmic.css";
@@ -54,14 +53,13 @@ export const PlasmicHomepage__ArgProps = new Array<ArgPropType>();
 
 export type PlasmicHomepage__OverridesType = {
   root?: p.Flex<"div">;
-  login?: p.Flex<typeof LoginButton>;
+  connect?: p.Flex<typeof Button>;
   h2?: p.Flex<"h2">;
   sandbox?: p.Flex<"div">;
   network?: p.Flex<"div">;
   address?: p.Flex<"div">;
   balance?: p.Flex<"div">;
   action?: p.Flex<typeof Button>;
-  text?: p.Flex<"div">;
 };
 
 export interface DefaultHomepageProps {
@@ -111,11 +109,21 @@ function PlasmicHomepage__RenderFunc(props: {
             sty.root
           )}
         >
-          <LoginButton
-            data-plasmic-name={"login"}
-            data-plasmic-override={overrides.login}
-            className={classNames("__wab_instance", sty.login)}
-          />
+          <Button
+            data-plasmic-name={"connect"}
+            data-plasmic-override={overrides.connect}
+            className={classNames("__wab_instance", sty.connect)}
+          >
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text__bEZq
+              )}
+            >
+              {"Connect"}
+            </div>
+          </Button>
 
           <h2
             data-plasmic-name={"h2"}
@@ -180,12 +188,10 @@ function PlasmicHomepage__RenderFunc(props: {
             className={classNames("__wab_instance", sty.action)}
           >
             <div
-              data-plasmic-name={"text"}
-              data-plasmic-override={overrides.text}
               className={classNames(
                 projectcss.all,
                 projectcss.__wab_text,
-                sty.text
+                sty.text__tDifg
               )}
             >
               {"Click me"}
@@ -200,37 +206,34 @@ function PlasmicHomepage__RenderFunc(props: {
 const PlasmicDescendants = {
   root: [
     "root",
-    "login",
+    "connect",
     "h2",
     "sandbox",
     "network",
     "address",
     "balance",
-    "action",
-    "text"
+    "action"
   ],
-  login: ["login"],
+  connect: ["connect"],
   h2: ["h2"],
   sandbox: ["sandbox", "network", "address", "balance"],
   network: ["network"],
   address: ["address"],
   balance: ["balance"],
-  action: ["action", "text"],
-  text: ["text"]
+  action: ["action"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
   typeof PlasmicDescendants[T][number];
 type NodeDefaultElementType = {
   root: "div";
-  login: typeof LoginButton;
+  connect: typeof Button;
   h2: "h2";
   sandbox: "div";
   network: "div";
   address: "div";
   balance: "div";
   action: typeof Button;
-  text: "div";
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -294,14 +297,13 @@ export const PlasmicHomepage = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    login: makeNodeComponent("login"),
+    connect: makeNodeComponent("connect"),
     h2: makeNodeComponent("h2"),
     sandbox: makeNodeComponent("sandbox"),
     network: makeNodeComponent("network"),
     address: makeNodeComponent("address"),
     balance: makeNodeComponent("balance"),
     action: makeNodeComponent("action"),
-    text: makeNodeComponent("text"),
 
     // Metadata about props expected for PlasmicHomepage
     internalVariantProps: PlasmicHomepage__VariantProps,

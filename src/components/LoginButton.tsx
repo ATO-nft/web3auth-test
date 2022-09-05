@@ -37,7 +37,10 @@ function LoginButton(props: LoginButtonProps) {
   // By default, we are just piping all LoginButtonProps here, but feel free
   // to do whatever works for you.
 
-  return <PlasmicLoginButton {...props} />;
+  return <PlasmicLoginButton  {...props} 
+  
+  
+  />;
 }
 
 export default LoginButton;

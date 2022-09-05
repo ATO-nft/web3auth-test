@@ -57,6 +57,7 @@ export type PlasmicHomepage__OverridesType = {
   login?: p.Flex<typeof LoginButton>;
   h2?: p.Flex<"h2">;
   sandbox?: p.Flex<"div">;
+  network?: p.Flex<"div">;
   action?: p.Flex<typeof Button>;
 };
 
@@ -133,10 +134,12 @@ function PlasmicHomepage__RenderFunc(props: {
               className={classNames(projectcss.all, sty.sandbox)}
             >
               <div
+                data-plasmic-name={"network"}
+                data-plasmic-override={overrides.network}
                 className={classNames(
                   projectcss.all,
                   projectcss.__wab_text,
-                  sty.text__mq0XZ
+                  sty.network
                 )}
               >
                 {"Network"}
@@ -186,10 +189,11 @@ function PlasmicHomepage__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "login", "h2", "sandbox", "action"],
+  root: ["root", "login", "h2", "sandbox", "network", "action"],
   login: ["login"],
   h2: ["h2"],
-  sandbox: ["sandbox"],
+  sandbox: ["sandbox", "network"],
+  network: ["network"],
   action: ["action"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -200,6 +204,7 @@ type NodeDefaultElementType = {
   login: typeof LoginButton;
   h2: "h2";
   sandbox: "div";
+  network: "div";
   action: typeof Button;
 };
 
@@ -267,6 +272,7 @@ export const PlasmicHomepage = Object.assign(
     login: makeNodeComponent("login"),
     h2: makeNodeComponent("h2"),
     sandbox: makeNodeComponent("sandbox"),
+    network: makeNodeComponent("network"),
     action: makeNodeComponent("action"),
 
     // Metadata about props expected for PlasmicHomepage

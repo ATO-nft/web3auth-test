@@ -15,9 +15,11 @@ export interface HomepageProps extends DefaultHomepageProps {}
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
   const web3auth = new Web3Auth({
-    clientId: "",
+    
+    clientId: "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV3n9qTgpv6Sa0CXU5HE0GcR7DY",
+    // clientId: process.env.WEB3_AUTH_CLIENT_ID,
     chainConfig: {
-      chainNamespace: "eip155",
+      chainNamespace: CHAIN_NAMESPACES.EIP155,
       chainId: "0x5", 
       rpcTarget: "https://eth-goerli.gateway.pokt.network/v1/lb/6306fd3fea87cf003a87b590",
       displayName: "Goerli Testnet",
@@ -33,12 +35,13 @@ function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
     console.log("clicked")
 
+    await web3auth.initModal();
 
-    // await web3auth.initModal();
+    const web3authProvider:any = web3auth.connect();
 
-    // const web3authProvider = web3auth.connect();
+    const provider = new ethers.providers.Web3Provider(web3authProvider); // web3auth.provider
 
-    //const provider = new ethers.providers.Web3Provider(web3authProvider); // web3auth.provider
+    console.log("provider: ", provider)
 
     setAddr("0xFrancis")
 

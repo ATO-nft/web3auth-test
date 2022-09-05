@@ -58,7 +58,10 @@ export type PlasmicHomepage__OverridesType = {
   h2?: p.Flex<"h2">;
   sandbox?: p.Flex<"div">;
   network?: p.Flex<"div">;
+  address?: p.Flex<"div">;
+  balance?: p.Flex<"div">;
   action?: p.Flex<typeof Button>;
+  text?: p.Flex<"div">;
 };
 
 export interface DefaultHomepageProps {
@@ -146,20 +149,24 @@ function PlasmicHomepage__RenderFunc(props: {
               </div>
 
               <div
+                data-plasmic-name={"address"}
+                data-plasmic-override={overrides.address}
                 className={classNames(
                   projectcss.all,
                   projectcss.__wab_text,
-                  sty.text__arNkx
+                  sty.address
                 )}
               >
                 {"Address"}
               </div>
 
               <div
+                data-plasmic-name={"balance"}
+                data-plasmic-override={overrides.balance}
                 className={classNames(
                   projectcss.all,
                   projectcss.__wab_text,
-                  sty.text___9Gsq2
+                  sty.balance
                 )}
               >
                 {"Balance"}
@@ -173,10 +180,12 @@ function PlasmicHomepage__RenderFunc(props: {
             className={classNames("__wab_instance", sty.action)}
           >
             <div
+              data-plasmic-name={"text"}
+              data-plasmic-override={overrides.text}
               className={classNames(
                 projectcss.all,
                 projectcss.__wab_text,
-                sty.text__tDifg
+                sty.text
               )}
             >
               {"Click me"}
@@ -189,12 +198,25 @@ function PlasmicHomepage__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "login", "h2", "sandbox", "network", "action"],
+  root: [
+    "root",
+    "login",
+    "h2",
+    "sandbox",
+    "network",
+    "address",
+    "balance",
+    "action",
+    "text"
+  ],
   login: ["login"],
   h2: ["h2"],
-  sandbox: ["sandbox", "network"],
+  sandbox: ["sandbox", "network", "address", "balance"],
   network: ["network"],
-  action: ["action"]
+  address: ["address"],
+  balance: ["balance"],
+  action: ["action", "text"],
+  text: ["text"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -205,7 +227,10 @@ type NodeDefaultElementType = {
   h2: "h2";
   sandbox: "div";
   network: "div";
+  address: "div";
+  balance: "div";
   action: typeof Button;
+  text: "div";
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -273,7 +298,10 @@ export const PlasmicHomepage = Object.assign(
     h2: makeNodeComponent("h2"),
     sandbox: makeNodeComponent("sandbox"),
     network: makeNodeComponent("network"),
+    address: makeNodeComponent("address"),
+    balance: makeNodeComponent("balance"),
     action: makeNodeComponent("action"),
+    text: makeNodeComponent("text"),
 
     // Metadata about props expected for PlasmicHomepage
     internalVariantProps: PlasmicHomepage__VariantProps,

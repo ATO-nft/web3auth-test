@@ -67,7 +67,7 @@
   font-size: 24px;
   min-width: 0;
 }
-.text__arNkx {
+.address {
   position: relative;
   width: 100%;
   height: auto;
@@ -76,7 +76,7 @@
   font-size: 24px;
   min-width: 0;
 }
-.text___9Gsq2 {
+.balance {
   position: relative;
   width: 100%;
   height: auto;
@@ -95,7 +95,7 @@
   width: 1em;
   height: 1em;
 }
-.text__tDifg {
+.text {
   color: var(--token-EiMaujwhg42lV);
 }
 .svg__v6Meb {

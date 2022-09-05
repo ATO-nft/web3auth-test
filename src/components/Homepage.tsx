@@ -103,7 +103,9 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
     const rpc = new RPC(provider);
     const chainId = await rpc.getChainId();
     console.log(chainId);
-    setNet(chainId)
+    if (chainId === "5") {
+      setNet("Goerli Testnet")
+    }
   };
   const getAccounts = async () => {
     if (!provider) {

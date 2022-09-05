@@ -21,6 +21,8 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
   const [addr, setAddr] = useState("Please connect");
+  const [net, setNet] = useState("Please connect");
+  const [bal, setBal] = useState("Please connect");
 
   useEffect(() => {
     const init = async () => {
@@ -38,6 +40,7 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
       setWeb3auth(web3auth);
 
       await web3auth.initModal();
+
         if (web3auth.provider) {
           setProvider(web3auth.provider);
         };
@@ -58,6 +61,12 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
     }
   }
 
+  const show = async () => {
+    getAccounts();
+    getChainId();
+    getBalance();
+  }
+
   const login = async () => {
     if (!web3auth) {
       console.log("web3auth not initialized yet");
@@ -65,7 +74,7 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
     }
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
-    await getAccounts()
+    console.log(web3authProvider)
   };
 
   // const getUserInfo = async () => {
@@ -86,15 +95,16 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
     setProvider(null);
   };
 
-  // const getChainId = async () => {
-  //   if (!provider) {
-  //     console.log("provider not initialized yet");
-  //     return;
-  //   }
-  //   const rpc = new RPC(provider);
-  //   const chainId = await rpc.getChainId();
-  //   console.log(chainId);
-  // };
+  const getChainId = async () => {
+    if (!provider) {
+      console.log("provider not initialized yet");
+      return;
+    }
+    const rpc = new RPC(provider);
+    const chainId = await rpc.getChainId();
+    console.log(chainId);
+    setNet(chainId)
+  };
   const getAccounts = async () => {
     if (!provider) {
       console.log("provider not initialized yet");
@@ -106,15 +116,16 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
     setAddr(address);
   };
 
-  // const getBalance = async () => {
-  //   if (!provider) {
-  //     console.log("provider not initialized yet");
-  //     return;
-  //   }
-  //   const rpc = new RPC(provider);
-  //   const balance = await rpc.getBalance();
-  //   console.log(balance);
-  // };
+  const getBalance = async () => {
+    if (!provider) {
+      console.log("provider not initialized yet");
+      return;
+    }
+    const rpc = new RPC(provider);
+    const balance = await rpc.getBalance();
+    console.log(balance);
+    setBal(balance);
+  };
 
   // const sendTransaction = async () => {
   //   if (!provider) {
@@ -199,17 +210,24 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
     }
   }}
 
-  // balance={{
-  //   props: {
-  //     children: null
-  //   }
-  // }}
+  balance={{
+    props: {
+      children: bal
+    }
+  }}
 
-  // network={{
-  //   props: {
-  //     children: null
-  //   }
-  // }}
+  network={{
+    props: {
+      children: net
+    }
+  }}
+
+  action={{
+    props: {
+      children:"Show",
+      onClick: () => show()
+    } as any
+  }}
   
   />;
 }

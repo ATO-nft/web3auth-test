@@ -16,10 +16,12 @@ export interface HomepageProps extends DefaultHomepageProps {}
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
-const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV3n9qTgpv6Sa0CXU5HE0GcR7DY";
+const clientId = "BElRAQWeX-3QArnc1mBGfCORb2BtyUn-DeIkqV1v90nx-AzAJ9oGivYATGHrkUzQas-4kptu20td_7HYiM--1ig";
 
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
-  const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
+  // const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
+  let provider:any = null;
+
   const [addr, setAddr] = useState("Please connect");
   const [net, setNet] = useState("Please connect");
   const [bal, setBal] = useState("Please connect");
@@ -42,7 +44,8 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
       await web3auth.initModal();
 
         if (web3auth.provider) {
-          setProvider(web3auth.provider);
+          // setProvider(web3auth.provider);
+          provider = web3auth.provider;
         };
       } catch (error) {
         console.error(error);
@@ -73,8 +76,9 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
       return;
     }
     const web3authProvider = await web3auth.connect();
-    setProvider(web3authProvider);
-    console.log(web3authProvider)
+    // setProvider(web3authProvider);
+    provider = web3authProvider;
+    console.log("web3authProvider: ", web3authProvider);
   };
 
   // const getUserInfo = async () => {
@@ -92,7 +96,8 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
       return;
     }
     await web3auth.logout();
-    setProvider(null);
+    // setProvider(null);
+    provider = null;
   };
 
   const getChainId = async () => {
@@ -110,6 +115,7 @@ const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV
   const getAccounts = async () => {
     if (!provider) {
       console.log("provider not initialized yet");
+      console.log("provider: ", provider)
       return;
     }
     const rpc = new RPC(provider);

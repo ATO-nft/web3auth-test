@@ -16,7 +16,7 @@ export interface HomepageProps extends DefaultHomepageProps {}
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
-const clientId = "BElRAQWeX-3QArnc1mBGfCORb2BtyUn-DeIkqV1v90nx-AzAJ9oGivYATGHrkUzQas-4kptu20td_7HYiM--1ig";
+const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV3n9qTgpv6Sa0CXU5HE0GcR7DY";
 
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   // const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);

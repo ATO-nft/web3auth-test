@@ -1,25 +1,18 @@
-This is a React project bootstrapped with [`create-plasmic-app`](https://www.npmjs.com/package/create-plasmic-app).
+# Web3Auth Test
 
-## Getting Started
+## Install
 
-First, run the development server:
-
-```bash
-npm run start
+```shell
+npm i
 ```
 
-Open your browser to see the result.
+## Run
 
-You can start editing your project in Plasmic Studio. The page auto-updates as you edit the project.
+Copy the [`.env.example`](https://github.com/ATO-nft/ato/blob/main/.env.example) file and rename it `.env`. In this `.env` file, you want to:
 
-## Learn More
+- Replace `REACT_APP_WEB3_AUTH_CLIENT_ID`
+- Replace `REACT_APP_RPC_URL`
 
-With Plasmic, you can enable non-developers on your team to publish pages and content into your website or app.
-
-To learn more about Plasmic, take a look at the following resources:
-
-- [Plasmic Website](https://www.plasmic.app/)
-- [Plasmic Documentation](https://docs.plasmic.app/learn/)
-- [Plasmic Slack Community](https://www.plasmic.app/slack)
-
-You can check out [the Plasmic GitHub repository](https://github.com/plasmicapp/plasmic) - your feedback and contributions are welcome!
+```shell
+npm start
+```

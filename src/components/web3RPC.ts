@@ -59,9 +59,11 @@ export default class EthereumRpc {
       // Get user's Ethereum public address
       const fromAddress = (await web3.eth.getAccounts())[0];
 
-      const destination = fromAddress;
+      const destination = "0x02bC12dAc51024f330fc79bFD651f66946aeF974";
 
-      const amount = web3.utils.toWei("0.001"); // Convert 1 ether to wei
+      const amount = web3.utils.toWei("0.0001"); // Convert 1 ether to wei
+
+      console.log("web3:", web3);
 
       // Submit transaction to the blockchain and wait for it to be mined
       const receipt = await web3.eth.sendTransaction({
@@ -71,6 +73,8 @@ export default class EthereumRpc {
         maxPriorityFeePerGas: "5000000000", // Max priority fee per gas
         maxFeePerGas: "6000000000000", // Max fee per gas
       });
+
+      console.log(receipt);
 
       return receipt;
     } catch (error) {

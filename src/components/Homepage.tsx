@@ -13,7 +13,6 @@ import { HTMLElementRefOf } from "@plasmicapp/react-web";
 
 export interface HomepageProps extends DefaultHomepageProps {}
 
-// const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV3n9qTgpv6Sa0CXU5HE0GcR7DY";
 const clientId = String(process.env.REACT_APP_WEB3_AUTH_CLIENT_ID);
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
@@ -93,6 +92,9 @@ const logout = async () => {
   }
   await web3auth.logout();
   setProvider(null);
+  setAddr("");
+  setNet("");
+  setBal("");
 };
 
 const getChainId = async () => {

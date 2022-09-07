@@ -76,15 +76,6 @@ const login = async () => {
   console.log("web3authProvider: ", web3authProvider);
 };
 
-// const getUserInfo = async () => {
-//   if (!web3auth) {
-//     console.log("web3auth not initialized yet");
-//     return;
-//   }
-//   const user = await web3auth.getUserInfo();
-//   console.log(user);
-// };
-
 const logout = async () => {
   if (!web3auth) {
     console.log("web3auth not initialized yet");
@@ -142,64 +133,6 @@ const sendTransaction = async () => {
   const receipt = await rpc.sendTransaction();
   console.log(receipt);
 };
-
-// const signMessage = async () => {
-//   if (!provider) {
-//     console.log("provider not initialized yet");
-//     return;
-//   }
-//   const rpc = new RPC(provider);
-//   const signedMessage = await rpc.signMessage();
-//   console.log(signedMessage);
-// };
-
-// const getPrivateKey = async () => {
-//   if (!provider) {
-//     console.log("provider not initialized yet");
-//     return;
-//   }
-//   const rpc = new RPC(provider);
-//   const privateKey = await rpc.getPrivateKey();
-//   console.log(privateKey);
-// };
-// const loggedInView = (
-//   <>
-//      <button onClick={getUserInfo} className="card">
-//       Get User Info
-//     </button>
-//     <button onClick={getChainId} className="card">
-//       Get Chain ID
-//     </button>
-//     <button onClick={getAccounts} className="card">
-//       Get Accounts
-//     </button>
-//     <button onClick={getBalance} className="card">
-//       Get Balance
-//     </button>
-//     <button onClick={sendTransaction} className="card">
-//       Send Transaction
-//     </button>
-//     <button onClick={signMessage} className="card">
-//       Sign Message
-//     </button>
-//     <button onClick={getPrivateKey} className="card">
-//       Get Private Key
-//     </button>
-//     <button onClick={logout} className="card">
-//       Log Out
-//     </button> 
-
-//     <div id="console" style={{ whiteSpace: "pre-line" }}>
-//       <p style={{ whiteSpace: "pre-line" }}></p>
-//     </div>
-//   </>
-// );
-
-// const unloggedInView = (
-//   <button onClick={login} className="card">
-//     Login
-//   </button>
-// );
 
 console.log("provider: ", provider)
 console.log("web3auth: ", web3auth)

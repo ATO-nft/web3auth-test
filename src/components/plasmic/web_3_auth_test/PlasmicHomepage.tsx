@@ -59,7 +59,9 @@ export type PlasmicHomepage__OverridesType = {
   network?: p.Flex<"div">;
   address?: p.Flex<"div">;
   balance?: p.Flex<"div">;
+  freeBox?: p.Flex<"div">;
   action?: p.Flex<typeof Button>;
+  action2?: p.Flex<typeof Button>;
 };
 
 export interface DefaultHomepageProps {
@@ -182,21 +184,46 @@ function PlasmicHomepage__RenderFunc(props: {
             </div>
           ) : null}
 
-          <Button
-            data-plasmic-name={"action"}
-            data-plasmic-override={overrides.action}
-            className={classNames("__wab_instance", sty.action)}
+          <p.Stack
+            as={"div"}
+            data-plasmic-name={"freeBox"}
+            data-plasmic-override={overrides.freeBox}
+            hasGap={true}
+            className={classNames(projectcss.all, sty.freeBox)}
           >
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__tDifg
-              )}
+            <Button
+              data-plasmic-name={"action"}
+              data-plasmic-override={overrides.action}
+              className={classNames("__wab_instance", sty.action)}
             >
-              {"Click me"}
-            </div>
-          </Button>
+              <div
+                className={classNames(
+                  projectcss.all,
+                  projectcss.__wab_text,
+                  sty.text__tDifg
+                )}
+              >
+                {"Click me"}
+              </div>
+            </Button>
+
+            <Button
+              data-plasmic-name={"action2"}
+              data-plasmic-override={overrides.action2}
+              className={classNames("__wab_instance", sty.action2)}
+              color={"green" as const}
+            >
+              <div
+                className={classNames(
+                  projectcss.all,
+                  projectcss.__wab_text,
+                  sty.text__ycx5Y
+                )}
+              >
+                {"Mint"}
+              </div>
+            </Button>
+          </p.Stack>
         </p.Stack>
       </div>
     </React.Fragment>
@@ -212,7 +239,9 @@ const PlasmicDescendants = {
     "network",
     "address",
     "balance",
-    "action"
+    "freeBox",
+    "action",
+    "action2"
   ],
   connect: ["connect"],
   h2: ["h2"],
@@ -220,7 +249,9 @@ const PlasmicDescendants = {
   network: ["network"],
   address: ["address"],
   balance: ["balance"],
-  action: ["action"]
+  freeBox: ["freeBox", "action", "action2"],
+  action: ["action"],
+  action2: ["action2"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -233,7 +264,9 @@ type NodeDefaultElementType = {
   network: "div";
   address: "div";
   balance: "div";
+  freeBox: "div";
   action: typeof Button;
+  action2: typeof Button;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -303,7 +336,9 @@ export const PlasmicHomepage = Object.assign(
     network: makeNodeComponent("network"),
     address: makeNodeComponent("address"),
     balance: makeNodeComponent("balance"),
+    freeBox: makeNodeComponent("freeBox"),
     action: makeNodeComponent("action"),
+    action2: makeNodeComponent("action2"),
 
     // Metadata about props expected for PlasmicHomepage
     internalVariantProps: PlasmicHomepage__VariantProps,

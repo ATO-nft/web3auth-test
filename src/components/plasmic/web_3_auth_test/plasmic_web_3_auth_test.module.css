@@ -5,6 +5,8 @@
   --plasmic-token-bleu: var(--token-pgkqYvBr6nJz2);
   --token-EiMaujwhg42lV: #ffffff;
   --plasmic-token-blanc: var(--token-EiMaujwhg42lV);
+  --token-LsTDso0Br: #8c1c84;
+  --plasmic-token-violet: var(--token-LsTDso0Br);
 }
 
 .plasmic_default_styles {

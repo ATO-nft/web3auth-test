@@ -177,30 +177,21 @@
   width: 1em;
   height: 1em;
 }
-.action2:global(.__wab_instance) {
+.send:global(.__wab_instance) {
   max-width: 100%;
   position: relative;
-  align-self: auto;
-  left: auto;
-  top: auto;
-  width: auto;
 }
-@media (min-width: 0px) and (max-width: 768px) {
-  .action2:global(.__wab_instance) {
-    left: auto;
-    top: auto;
-  }
-}
-.svg__pUdGy {
+.svg__tpcNm {
   position: relative;
   object-fit: cover;
   width: 1em;
   height: 1em;
 }
-.text__ycx5Y {
+.text__ejgn {
   color: var(--token-EiMaujwhg42lV);
+  white-space: pre;
 }
-.svg__ceCfU {
+.svg__oKi8U {
   position: relative;
   object-fit: cover;
   width: 1em;

@@ -13,9 +13,10 @@ import { HTMLElementRefOf } from "@plasmicapp/react-web";
 
 export interface HomepageProps extends DefaultHomepageProps {}
 
-function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
+// const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV3n9qTgpv6Sa0CXU5HE0GcR7DY";
+const clientId = String(process.env.REACT_APP_WEB3_AUTH_CLIENT_ID);
 
-const clientId = "BMzPnjsIB60JN4nYjVxSVwfdYNZTrS6lKY4JzYJA8y4mllRPMlKdRITPNKpqgV3n9qTgpv6Sa0CXU5HE0GcR7DY";
+function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
 const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
 const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
@@ -32,7 +33,7 @@ useEffect(() => {
       chainConfig: {
         chainNamespace: CHAIN_NAMESPACES.EIP155,
         chainId: "0x5",
-        rpcTarget: "https://eth-goerli.gateway.pokt.network/v1/lb/6306fd3fea87cf003a87b590", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+        rpcTarget: process.env.REACT_APP_RPC_URL, // This is the public RPC we have added, please pass on your own endpoint while creating an app
       },
     });
 
@@ -130,15 +131,15 @@ const getBalance = async () => {
   setBal(balance);
 };
 
-// const sendTransaction = async () => {
-//   if (!provider) {
-//     console.log("provider not initialized yet");
-//     return;
-//   }
-//   const rpc = new RPC(provider);
-//   const receipt = await rpc.sendTransaction();
-//   console.log(receipt);
-// };
+const sendTransaction = async () => {
+  if (!provider) {
+    console.log("provider not initialized yet");
+    return;
+  }
+  const rpc = new RPC(provider);
+  const receipt = await rpc.sendTransaction();
+  console.log(receipt);
+};
 
 // const signMessage = async () => {
 //   if (!provider) {
@@ -232,6 +233,13 @@ return <PlasmicHomepage root={{ ref }} {...props}
     props: {
       children:"Show",
       onClick: () => show()
+    } as any
+  }}
+
+  send={{
+    props: {
+      children:"Send tx",
+      onClick: () => sendTransaction()
     } as any
   }}
   

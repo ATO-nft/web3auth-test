@@ -61,7 +61,7 @@ export type PlasmicHomepage__OverridesType = {
   balance?: p.Flex<"div">;
   freeBox?: p.Flex<"div">;
   action?: p.Flex<typeof Button>;
-  action2?: p.Flex<typeof Button>;
+  send?: p.Flex<typeof Button>;
 };
 
 export interface DefaultHomepageProps {
@@ -137,7 +137,7 @@ function PlasmicHomepage__RenderFunc(props: {
               sty.h2
             )}
           >
-            {"Web3Auth test 🌈"}
+            {"Web3Auth Test 🌈"}
           </h2>
 
           {true ? (
@@ -208,19 +208,18 @@ function PlasmicHomepage__RenderFunc(props: {
             </Button>
 
             <Button
-              data-plasmic-name={"action2"}
-              data-plasmic-override={overrides.action2}
-              className={classNames("__wab_instance", sty.action2)}
-              color={"green" as const}
+              data-plasmic-name={"send"}
+              data-plasmic-override={overrides.send}
+              className={classNames("__wab_instance", sty.send)}
             >
               <div
                 className={classNames(
                   projectcss.all,
                   projectcss.__wab_text,
-                  sty.text__ycx5Y
+                  sty.text__ejgn
                 )}
               >
-                {"Mint"}
+                {"Sign a tx"}
               </div>
             </Button>
           </p.Stack>
@@ -241,7 +240,7 @@ const PlasmicDescendants = {
     "balance",
     "freeBox",
     "action",
-    "action2"
+    "send"
   ],
   connect: ["connect"],
   h2: ["h2"],
@@ -249,9 +248,9 @@ const PlasmicDescendants = {
   network: ["network"],
   address: ["address"],
   balance: ["balance"],
-  freeBox: ["freeBox", "action", "action2"],
+  freeBox: ["freeBox", "action", "send"],
   action: ["action"],
-  action2: ["action2"]
+  send: ["send"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -266,7 +265,7 @@ type NodeDefaultElementType = {
   balance: "div";
   freeBox: "div";
   action: typeof Button;
-  action2: typeof Button;
+  send: typeof Button;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -338,7 +337,7 @@ export const PlasmicHomepage = Object.assign(
     balance: makeNodeComponent("balance"),
     freeBox: makeNodeComponent("freeBox"),
     action: makeNodeComponent("action"),
-    action2: makeNodeComponent("action2"),
+    send: makeNodeComponent("send"),
 
     // Metadata about props expected for PlasmicHomepage
     internalVariantProps: PlasmicHomepage__VariantProps,

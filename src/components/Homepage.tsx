@@ -32,7 +32,7 @@ useEffect(() => {
       chainConfig: {
         chainNamespace: CHAIN_NAMESPACES.EIP155,
         chainId: "0x5",
-        rpcTarget: process.env.REACT_APP_RPC_URL, // This is the public RPC we have added, please pass on your own endpoint while creating an app
+        rpcTarget: process.env.REACT_APP_RPC_URL,
       },
     });
 

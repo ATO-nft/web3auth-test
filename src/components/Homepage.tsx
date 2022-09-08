@@ -5,12 +5,14 @@ import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./ethersRPC";
 import "./App.css";
 import loader from '../../src/loader.svg';
+import Confetti from 'react-confetti';
+
 
 import {
   PlasmicHomepage,
   DefaultHomepageProps
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
-import { HTMLElementRefOf } from "@plasmicapp/react-web";
+import { HTMLElementRefOf, useSelectOption } from "@plasmicapp/react-web";
 
 export interface HomepageProps extends DefaultHomepageProps {}
 
@@ -26,6 +28,7 @@ const [addr, setAddr] = useState("");
 const [net, setNet] = useState("");
 const [bal, setBal] = useState("");
 const [loading, setLoading] = useState(false);
+const [party, setParty] = useState(false);
 
 useEffect(() => {
   show()
@@ -155,6 +158,11 @@ const sendTransaction = async () => {
   await rpc.sendTransaction();
   setLoading(false);
   await show();
+  setParty(true);
+  setTimeout( () => {
+    setParty(false)}, 10000
+  
+  );
 
   } catch (error) {
     return error as string;
@@ -180,8 +188,26 @@ const getFreeMoney = async () => {
   console.log("finished")
 };
 
-return <PlasmicHomepage root={{ ref }} {...props} 
+return <PlasmicHomepage  
   
+root={{
+  wrapChildren: (children) => (
+    <>
+      {children}
+      {party === true ? <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight - 10}
+          numberOfPieces={500}
+          gravity={0.1}
+          run={true}
+          tweenDuration={1000}
+          /> : <></>}
+    </>
+  )
+}}
+
+{...props}
+
   connect={{
     props: {
       children:(!provider ? "Login" : "Logout"),
@@ -211,7 +237,9 @@ return <PlasmicHomepage root={{ ref }} {...props}
     } as any
   }}  
 
-/>;}
+/>
+
+;}
 
 const Homepage = React.forwardRef(Homepage_);
 export default Homepage;

@@ -157,26 +157,6 @@
   > img {
   margin-left: 20px;
 }
-.action:global(.__wab_instance) {
-  max-width: 100%;
-  position: relative;
-  width: auto;
-}
-.svg__xPxs7 {
-  position: relative;
-  object-fit: cover;
-  width: 1em;
-  height: 1em;
-}
-.text__tDifg {
-  color: var(--token-EiMaujwhg42lV);
-}
-.svg__v6Meb {
-  position: relative;
-  object-fit: cover;
-  width: 1em;
-  height: 1em;
-}
 .send:global(.__wab_instance) {
   max-width: 100%;
   position: relative;

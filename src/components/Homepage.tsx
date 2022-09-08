@@ -2,8 +2,9 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
-import RPC from "./web3RPC";
+import RPC from "./ethersRPC";
 import "./App.css";
+import loader from '../../src/loader.svg';
 
 import {
   PlasmicHomepage,
@@ -14,6 +15,7 @@ import { HTMLElementRefOf } from "@plasmicapp/react-web";
 export interface HomepageProps extends DefaultHomepageProps {}
 
 const clientId = String(process.env.REACT_APP_WEB3_AUTH_CLIENT_ID);
+const endpoint = String(process.env.REACT_APP_RPC_URL);
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
@@ -22,17 +24,30 @@ const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
 const [addr, setAddr] = useState("");
 const [net, setNet] = useState("");
 const [bal, setBal] = useState("");
+const [loading, setLoading] = useState(false);
+
+useEffect(() => {
+
+  show()
+
+
+}, [provider]);
 
 useEffect(() => {
   const init = async () => {
     try {
 
+    console.log("CHAIN_NAMESPACES.EIP155:", CHAIN_NAMESPACES.EIP155);
     const web3auth = new Web3Auth({
-      clientId,
+      clientId: clientId,
       chainConfig: {
         chainNamespace: CHAIN_NAMESPACES.EIP155,
-        chainId: "0x5",
-        rpcTarget: process.env.REACT_APP_RPC_URL,
+        chainId: "0x3", 
+        rpcTarget: endpoint,
+        displayName: "Ropsten Testnet",
+        blockExplorer: "https://ropsten.etherscan.io",
+        ticker: "ETH",
+        tickerName: "Ethereum",
       },
     });
 
@@ -43,6 +58,7 @@ useEffect(() => {
       if (web3auth.provider) {
         setProvider(web3auth.provider);
       };
+      console.log("web3auth.provider 1: ", web3auth.provider)
     } catch (error) {
       console.error(error);
     }
@@ -96,9 +112,7 @@ const getChainId = async () => {
   const rpc = new RPC(provider);
   const chainId = await rpc.getChainId();
   console.log(chainId);
-  if (chainId === "5") {
-    setNet("Goerli Testnet")
-  }
+  setNet(chainId)
 };
 const getAccounts = async () => {
   if (!provider) {
@@ -125,17 +139,26 @@ const getBalance = async () => {
 };
 
 const sendTransaction = async () => {
+
+  try {
+
+    setLoading(true);
+
   if (!provider) {
     console.log("provider not initialized yet");
     return;
   }
+
   const rpc = new RPC(provider);
   const receipt = await rpc.sendTransaction();
-  console.log(receipt);
-};
+  setLoading(false);
 
-console.log("provider: ", provider)
-console.log("web3auth: ", web3auth)
+  await show();
+
+  } catch (error) {
+    return error as string;
+  }
+};
 
 return <PlasmicHomepage root={{ ref }} {...props} 
   
@@ -148,28 +171,28 @@ return <PlasmicHomepage root={{ ref }} {...props}
 
   address={{
     props: {
-      children: addr
+      children: (loading === true  ? "" : addr)
     }
   }}
 
   balance={{
     props: {
-      children: bal
+      children: (loading === true  ? <img src = {loader} /> : bal)
     }
   }}
 
   network={{
     props: {
-      children: net
+      children: (loading === true  ? "" : net)
     }
   }}
 
-  action={{
-    props: {
-      children:"Show",
-      onClick: () => show()
-    } as any
-  }}
+  // action={{
+  //   props: {
+  //     children:"Show",
+  //     onClick: () => show()
+  //   } as any
+  // }}
 
   send={{
     props: {
@@ -177,6 +200,13 @@ return <PlasmicHomepage root={{ ref }} {...props}
       onClick: () => sendTransaction()
     } as any
   }}
+
+  // sandbox={{
+  //   props: {
+  //     children: (loading === true  && <img src = {loader} />)
+  //     // children: <div id="divLoader"></div>
+  //   }
+  // }}
   
   />;
 }

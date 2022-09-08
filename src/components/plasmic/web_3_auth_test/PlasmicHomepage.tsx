@@ -60,7 +60,6 @@ export type PlasmicHomepage__OverridesType = {
   address?: p.Flex<"div">;
   balance?: p.Flex<"div">;
   freeBox?: p.Flex<"div">;
-  action?: p.Flex<typeof Button>;
   send?: p.Flex<typeof Button>;
 };
 
@@ -192,22 +191,6 @@ function PlasmicHomepage__RenderFunc(props: {
             className={classNames(projectcss.all, sty.freeBox)}
           >
             <Button
-              data-plasmic-name={"action"}
-              data-plasmic-override={overrides.action}
-              className={classNames("__wab_instance", sty.action)}
-            >
-              <div
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text__tDifg
-                )}
-              >
-                {"Click me"}
-              </div>
-            </Button>
-
-            <Button
               data-plasmic-name={"send"}
               data-plasmic-override={overrides.send}
               className={classNames("__wab_instance", sty.send)}
@@ -239,7 +222,6 @@ const PlasmicDescendants = {
     "address",
     "balance",
     "freeBox",
-    "action",
     "send"
   ],
   connect: ["connect"],
@@ -248,8 +230,7 @@ const PlasmicDescendants = {
   network: ["network"],
   address: ["address"],
   balance: ["balance"],
-  freeBox: ["freeBox", "action", "send"],
-  action: ["action"],
+  freeBox: ["freeBox", "send"],
   send: ["send"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -264,7 +245,6 @@ type NodeDefaultElementType = {
   address: "div";
   balance: "div";
   freeBox: "div";
-  action: typeof Button;
   send: typeof Button;
 };
 
@@ -336,7 +316,6 @@ export const PlasmicHomepage = Object.assign(
     address: makeNodeComponent("address"),
     balance: makeNodeComponent("balance"),
     freeBox: makeNodeComponent("freeBox"),
-    action: makeNodeComponent("action"),
     send: makeNodeComponent("send"),
 
     // Metadata about props expected for PlasmicHomepage

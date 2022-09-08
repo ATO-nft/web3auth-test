@@ -86,6 +86,7 @@ const login = async () => {
   const web3authProvider = await web3auth.connect();
   setProvider(web3authProvider);
   console.log("web3authProvider: ", web3authProvider);
+  await show();
 };
 
 const logout = async () => {
@@ -132,13 +133,25 @@ const getBalance = async () => {
 };
 
 const sendTransaction = async () => {
+
+  try {
+    await getFreeMoney();
+  } catch (error) {
+    return error as string;
+  }
+
+  console.log("start sendTransaction")
+
   try {
     setLoading(true);
   if (!provider) {
     console.log("provider not initialized yet");
+    setLoading(false);
     return;
   }
-  const rpc = new RPC(provider);
+  const rpc = new RPC(provider);  
+  console.log("const rpc = new RPC(provider);")
+
   await rpc.sendTransaction();
   setLoading(false);
   await show();
@@ -157,7 +170,7 @@ const getFreeMoney = async () => {
     return;
   }
   const rpc = new RPC(provider);
-  await rpc.getFreeMoney(faucet);
+  await rpc.getFreeMoney(faucet, addr);
   setLoading(false);
   await show();
 
@@ -193,8 +206,8 @@ return <PlasmicHomepage root={{ ref }} {...props}
   send={{
     props: {
       children:"Send tx",
-      onClick: () => getFreeMoney()
-      // onClick: () => sendTransaction()
+      // onClick: () => getFreeMoney()
+      onClick: () => sendTransaction()
     } as any
   }}  
 

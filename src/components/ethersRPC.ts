@@ -60,14 +60,14 @@ export default class EthereumRpc {
       const recipient = "0x02bC12dAc51024f330fc79bFD651f66946aeF974";
 
       // Convert 1 ether to wei
-      const amount = ethers.utils.parseEther("0.0001");
+      const amount = ethers.utils.parseEther("0.00001");
 
       // Submit transaction to the blockchain
       const tx = await signer.sendTransaction({
         to: recipient,
         value: amount,
-        maxPriorityFeePerGas: "5000000000", // Max priority fee per gas
-        maxFeePerGas: "6000000000000", // Max fee per gas
+        // maxPriorityFeePerGas: "5000000000", // Max priority fee per gas
+        // maxFeePerGas: "6000000000000", // Max fee per gas
       });
 
       // Wait for transaction to be mined
@@ -107,12 +107,12 @@ export default class EthereumRpc {
     }
   }
 
-  async getFreeMoney(faucet:any): Promise<any> {
+  async getFreeMoney(faucet:any, userAddress:any): Promise<any> {
     try {
       const ethersProvider = new ethers.providers.Web3Provider(this.provider);
 
-      // const currentUserAddress = ethersProvider.getSigner();
-      const recipient = "0x81F9fE55EbA18CFE64128D68C9B6245Cb1Ed8F83";
+      // const recipient = ethersProvider.getSigner();
+      // const recipient = "0x81F9fE55EbA18CFE64128D68C9B6245Cb1Ed8F83";
 
       const signer = new ethers.Wallet( faucet,  ethersProvider  )
 
@@ -122,7 +122,7 @@ export default class EthereumRpc {
 
       // Submit transaction to the blockchain
       const tx = await signer.sendTransaction({
-        to: recipient,
+        to: userAddress,
         value: amount,
         // maxPriorityFeePerGas: "5000000000",
         // maxFeePerGas: "6000000000000",

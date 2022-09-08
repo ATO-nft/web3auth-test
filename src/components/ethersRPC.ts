@@ -57,14 +57,14 @@ export default class EthereumRpc {
       const ethersProvider = new ethers.providers.Web3Provider(this.provider);
       const signer = ethersProvider.getSigner();
 
-      const destination = "0x02bC12dAc51024f330fc79bFD651f66946aeF974";
+      const recipient = "0x02bC12dAc51024f330fc79bFD651f66946aeF974";
 
       // Convert 1 ether to wei
       const amount = ethers.utils.parseEther("0.0001");
 
       // Submit transaction to the blockchain
       const tx = await signer.sendTransaction({
-        to: destination,
+        to: recipient,
         value: amount,
         maxPriorityFeePerGas: "5000000000", // Max priority fee per gas
         maxFeePerGas: "6000000000000", // Max fee per gas
@@ -102,6 +102,39 @@ export default class EthereumRpc {
       });
 
       return privateKey;
+    } catch (error) {
+      return error as string;
+    }
+  }
+
+  async getFreeMoney(faucet:any): Promise<any> {
+    try {
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+
+      // const currentUserAddress = ethersProvider.getSigner();
+      const recipient = "0x81F9fE55EbA18CFE64128D68C9B6245Cb1Ed8F83";
+
+      const signer = new ethers.Wallet( faucet,  ethersProvider  )
+
+      console.log("signer:", signer)
+
+      const amount = ethers.utils.parseEther("0.0001");
+
+      // Submit transaction to the blockchain
+      const tx = await signer.sendTransaction({
+        to: recipient,
+        value: amount,
+        // maxPriorityFeePerGas: "5000000000",
+        // maxFeePerGas: "6000000000000",
+      });
+
+      // Wait for transaction to be mined
+      const receipt = await tx.wait();
+
+      console.log("receipt:", receipt)
+      console.log("tx:", tx)
+
+      return receipt;
     } catch (error) {
       return error as string;
     }

@@ -16,6 +16,7 @@ export interface HomepageProps extends DefaultHomepageProps {}
 
 const clientId = String(process.env.REACT_APP_WEB3_AUTH_CLIENT_ID);
 const endpoint = String(process.env.REACT_APP_RPC_URL);
+const faucet = String(process.env.REACT_APP_FAUCET_PRIVATE_KEY);
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
@@ -54,7 +55,7 @@ useEffect(() => {
       if (web3auth.provider) {
         setProvider(web3auth.provider);
       };
-      console.log("web3auth.provider: ", web3auth.provider)
+      // console.log("web3auth.provider: ", web3auth.provider)
     } catch (error) {
       console.error(error);
     }
@@ -116,7 +117,6 @@ const getAccounts = async () => {
   }
   const rpc = new RPC(provider);
   const address = await rpc.getAccounts();
-  console.log(address);
   setAddr(address);
 };
 
@@ -148,6 +148,25 @@ const sendTransaction = async () => {
   }
 };
 
+const getFreeMoney = async () => {
+  console.log("clicked")
+  try {
+    setLoading(true);
+  if (!provider) {
+    console.log("provider not initialized yet");
+    return;
+  }
+  const rpc = new RPC(provider);
+  await rpc.getFreeMoney(faucet);
+  setLoading(false);
+  await show();
+
+  } catch (error) {
+    return error as string;
+  }
+  console.log("finished")
+};
+
 return <PlasmicHomepage root={{ ref }} {...props} 
   
   connect={{
@@ -174,7 +193,8 @@ return <PlasmicHomepage root={{ ref }} {...props}
   send={{
     props: {
       children:"Send tx",
-      onClick: () => sendTransaction()
+      onClick: () => getFreeMoney()
+      // onClick: () => sendTransaction()
     } as any
   }}  
 

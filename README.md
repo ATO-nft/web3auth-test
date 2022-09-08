@@ -12,6 +12,7 @@ Copy the [`.env.example`](https://github.com/ATO-nft/web3auth-test/blob/main/.en
 
 - Replace `REACT_APP_WEB3_AUTH_CLIENT_ID`
 - Replace `REACT_APP_RPC_URL`
+- Replace `REACT_APP_FAUCET_PRIVATE_KEY` (must hold > 0.0001 Ropsten ETH)
 
 ```shell
 npm start

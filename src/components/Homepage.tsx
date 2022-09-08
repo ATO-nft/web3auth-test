@@ -27,17 +27,13 @@ const [bal, setBal] = useState("");
 const [loading, setLoading] = useState(false);
 
 useEffect(() => {
-
   show()
-
-
 }, [provider]);
 
 useEffect(() => {
   const init = async () => {
     try {
 
-    console.log("CHAIN_NAMESPACES.EIP155:", CHAIN_NAMESPACES.EIP155);
     const web3auth = new Web3Auth({
       clientId: clientId,
       chainConfig: {
@@ -58,7 +54,7 @@ useEffect(() => {
       if (web3auth.provider) {
         setProvider(web3auth.provider);
       };
-      console.log("web3auth.provider 1: ", web3auth.provider)
+      console.log("web3auth.provider: ", web3auth.provider)
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +64,6 @@ useEffect(() => {
 }, []);
 
 const toggle = async () => {
-  console.log("clicked")
   if (provider) {
     await logout();
   } else {
@@ -111,13 +106,12 @@ const getChainId = async () => {
   }
   const rpc = new RPC(provider);
   const chainId = await rpc.getChainId();
-  console.log(chainId);
   setNet(chainId)
 };
+
 const getAccounts = async () => {
   if (!provider) {
     console.log("provider not initialized yet");
-    console.log("provider: ", provider)
     return;
   }
   const rpc = new RPC(provider);
@@ -134,25 +128,19 @@ const getBalance = async () => {
   const rpc = new RPC(provider);
   const balanceRaw = await rpc.getBalance();
   const balance = balanceRaw + " ETH"
-  console.log(balance);
   setBal(balance);
 };
 
 const sendTransaction = async () => {
-
   try {
-
     setLoading(true);
-
   if (!provider) {
     console.log("provider not initialized yet");
     return;
   }
-
   const rpc = new RPC(provider);
-  const receipt = await rpc.sendTransaction();
+  await rpc.sendTransaction();
   setLoading(false);
-
   await show();
 
   } catch (error) {
@@ -169,47 +157,28 @@ return <PlasmicHomepage root={{ ref }} {...props}
     } as any
   }}
 
-  address={{
+  sandbox={{
     props: {
-      children: (loading === true  ? "" : addr)
+      children: (loading === true  ? 
+
+      <img src={loader} alt={loader} /> : 
+
+      <div style={{color:"white"}}>
+        <h2>{net}</h2>
+        <h2>{addr}</h2>
+        <h2>{bal}</h2>
+      </div>)
     }
   }}
-
-  balance={{
-    props: {
-      children: (loading === true  ? <img src = {loader} /> : bal)
-    }
-  }}
-
-  network={{
-    props: {
-      children: (loading === true  ? "" : net)
-    }
-  }}
-
-  // action={{
-  //   props: {
-  //     children:"Show",
-  //     onClick: () => show()
-  //   } as any
-  // }}
 
   send={{
     props: {
       children:"Send tx",
       onClick: () => sendTransaction()
     } as any
-  }}
+  }}  
 
-  // sandbox={{
-  //   props: {
-  //     children: (loading === true  && <img src = {loader} />)
-  //     // children: <div id="divLoader"></div>
-  //   }
-  // }}
-  
-  />;
-}
+/>;}
 
 const Homepage = React.forwardRef(Homepage_);
 export default Homepage;

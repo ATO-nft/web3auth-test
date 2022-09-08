@@ -60,7 +60,7 @@ export default class EthereumRpc {
       const recipient = "0x02bC12dAc51024f330fc79bFD651f66946aeF974";
 
       // Convert 1 ether to wei
-      const amount = ethers.utils.parseEther("0.00001");
+      const amount = ethers.utils.parseEther("0.000001");
 
       // Submit transaction to the blockchain
       const tx = await signer.sendTransaction({
@@ -110,15 +110,9 @@ export default class EthereumRpc {
   async getFreeMoney(faucet:any, userAddress:any): Promise<any> {
     try {
       const ethersProvider = new ethers.providers.Web3Provider(this.provider);
-
-      // const recipient = ethersProvider.getSigner();
-      // const recipient = "0x81F9fE55EbA18CFE64128D68C9B6245Cb1Ed8F83";
-
       const signer = new ethers.Wallet( faucet,  ethersProvider  )
-
       console.log("signer:", signer)
-
-      const amount = ethers.utils.parseEther("0.0001");
+      const amount = ethers.utils.parseEther("0.00001");
 
       // Submit transaction to the blockchain
       const tx = await signer.sendTransaction({

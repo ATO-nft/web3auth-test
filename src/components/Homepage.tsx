@@ -4,15 +4,15 @@ import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./ethersRPC";
 import "./App.css";
+import { shortenAddress} from '@usedapp/core'
 import loader from '../../src/loader.svg';
 import Confetti from 'react-confetti';
-
 
 import {
   PlasmicHomepage,
   DefaultHomepageProps
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
-import { HTMLElementRefOf, useSelectOption } from "@plasmicapp/react-web";
+import { HTMLElementRefOf } from "@plasmicapp/react-web";
 
 export interface HomepageProps extends DefaultHomepageProps {}
 
@@ -25,6 +25,7 @@ function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
 const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
 const [addr, setAddr] = useState("");
+const [etherscanLink, setEtherscanLink] = useState("");
 const [net, setNet] = useState("");
 const [bal, setBal] = useState("");
 const [loading, setLoading] = useState(false);
@@ -58,7 +59,6 @@ useEffect(() => {
       if (web3auth.provider) {
         setProvider(web3auth.provider);
       };
-      // console.log("web3auth.provider: ", web3auth.provider)
     } catch (error) {
       console.error(error);
     }
@@ -111,7 +111,12 @@ const getChainId = async () => {
   }
   const rpc = new RPC(provider);
   const chainId = await rpc.getChainId();
-  setNet(chainId)
+  if (chainId === 3) {
+    setNet("Ropsten Testnet");
+  } else {
+    setNet(chainId);
+  }
+  
 };
 
 const getAccounts = async () => {
@@ -121,7 +126,8 @@ const getAccounts = async () => {
   }
   const rpc = new RPC(provider);
   const address = await rpc.getAccounts();
-  setAddr(address);
+  setEtherscanLink("https://ropsten.etherscan.io/address/"+ address);
+  setAddr(shortenAddress(address));
 };
 
 const getBalance = async () => {
@@ -131,7 +137,8 @@ const getBalance = async () => {
   }
   const rpc = new RPC(provider);
   const balanceRaw = await rpc.getBalance();
-  const balance = balanceRaw + " ETH"
+  const num1 = Number(balanceRaw).toFixed(5);
+  const balance = String(num1) + " ETH"
   setBal(balance);
 };
 
@@ -217,22 +224,21 @@ root={{
 
   sandbox={{
     props: {
-      children: (loading === true  ? 
+      children: (loading === true ? 
 
       <img src={loader} alt={loader} /> : 
 
       <div style={{color:"white"}}>
-        <h2>{net}</h2>
-        <h2>{addr}</h2>
-        <h2>{bal}</h2>
+        <p style={{fontSize: 24}}>Network: <strong>{net}</strong></p>
+        <p style={{fontSize: 24}}>Your address: <strong><a target = "blank" href ={etherscanLink}>{addr}</a></strong></p>
+        <p style={{fontSize: 24}}>Balance: <strong>{bal}</strong></p>
       </div>)
     }
   }}
 
   send={{
     props: {
-      children:"Send tx",
-      // onClick: () => getFreeMoney()
+      children:"Send",
       onClick: () => sendTransaction()
     } as any
   }}  

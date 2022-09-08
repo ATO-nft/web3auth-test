@@ -21,3 +21,6 @@
   min-height: 0;
   padding: 8px;
 }
+.login:global(.__wab_instance):global(.__wab_instance) {
+  flex-shrink: 0;
+}

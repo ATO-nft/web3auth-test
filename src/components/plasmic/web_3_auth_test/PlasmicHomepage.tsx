@@ -33,6 +33,8 @@ import {
 } from "@plasmicapp/react-web";
 import Button from "../../Button"; // plasmic-import: 2absIEKb81Nff/component
 
+import { useScreenVariants as useScreenVariantsdYbhPAqG0G9Hu } from "./PlasmicGlobalVariant__Screen"; // plasmic-import: dYbhPAqG0g9Hu/globalVariant
+
 import "@plasmicapp/react-web/lib/plasmic.css";
 
 import projectcss from "./plasmic_web_3_auth_test.module.css"; // plasmic-import: 54HMz7Hvd2hKuAsezVhBVr/projectcss
@@ -54,6 +56,7 @@ export const PlasmicHomepage__ArgProps = new Array<ArgPropType>();
 export type PlasmicHomepage__OverridesType = {
   root?: p.Flex<"div">;
   connect?: p.Flex<typeof Button>;
+  connect2?: p.Flex<typeof Button>;
   h2?: p.Flex<"h2">;
   sandbox?: p.Flex<"div">;
   network?: p.Flex<"div">;
@@ -89,6 +92,10 @@ function PlasmicHomepage__RenderFunc(props: {
 
   const $props = args;
 
+  const globalVariants = ensureGlobalVariants({
+    screen: useScreenVariantsdYbhPAqG0G9Hu()
+  });
+
   return (
     <React.Fragment>
       {}
@@ -110,21 +117,44 @@ function PlasmicHomepage__RenderFunc(props: {
             sty.root
           )}
         >
-          <Button
-            data-plasmic-name={"connect"}
-            data-plasmic-override={overrides.connect}
-            className={classNames("__wab_instance", sty.connect)}
-          >
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__bEZq
-              )}
+          {(
+            hasVariant(globalVariants, "screen", "mobileOnly") ? true : true
+          ) ? (
+            <Button
+              data-plasmic-name={"connect"}
+              data-plasmic-override={overrides.connect}
+              className={classNames("__wab_instance", sty.connect)}
             >
-              {"Connect"}
-            </div>
-          </Button>
+              <div
+                className={classNames(
+                  projectcss.all,
+                  projectcss.__wab_text,
+                  sty.text__bEZq
+                )}
+              >
+                {"Connect"}
+              </div>
+            </Button>
+          ) : null}
+          {(
+            hasVariant(globalVariants, "screen", "mobileOnly") ? true : false
+          ) ? (
+            <Button
+              data-plasmic-name={"connect2"}
+              data-plasmic-override={overrides.connect2}
+              className={classNames("__wab_instance", sty.connect2)}
+            >
+              <div
+                className={classNames(
+                  projectcss.all,
+                  projectcss.__wab_text,
+                  sty.text__dUWfL
+                )}
+              >
+                {"Connect"}
+              </div>
+            </Button>
+          ) : null}
 
           <h2
             data-plasmic-name={"h2"}
@@ -136,7 +166,7 @@ function PlasmicHomepage__RenderFunc(props: {
               sty.h2
             )}
           >
-            {"Web3Auth Test 🌈"}
+            {"Plasmic Web3"}
           </h2>
 
           {true ? (
@@ -216,6 +246,7 @@ const PlasmicDescendants = {
   root: [
     "root",
     "connect",
+    "connect2",
     "h2",
     "sandbox",
     "network",
@@ -225,6 +256,7 @@ const PlasmicDescendants = {
     "send"
   ],
   connect: ["connect"],
+  connect2: ["connect2"],
   h2: ["h2"],
   sandbox: ["sandbox", "network", "address", "balance"],
   network: ["network"],
@@ -239,6 +271,7 @@ type DescendantsType<T extends NodeNameType> =
 type NodeDefaultElementType = {
   root: "div";
   connect: typeof Button;
+  connect2: typeof Button;
   h2: "h2";
   sandbox: "div";
   network: "div";
@@ -310,6 +343,7 @@ export const PlasmicHomepage = Object.assign(
   {
     // Helper components rendering sub-elements
     connect: makeNodeComponent("connect"),
+    connect2: makeNodeComponent("connect2"),
     h2: makeNodeComponent("h2"),
     sandbox: makeNodeComponent("sandbox"),
     network: makeNodeComponent("network"),

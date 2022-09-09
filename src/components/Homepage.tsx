@@ -33,7 +33,7 @@ const [etherscanLink, setEtherscanLink] = useState("");
 const [txHash, setTxHash] = useState("");
 const [net, setNet] = useState("");
 const [bal, setBal] = useState("");
-const [balWei, setBalWei] = useState(0);
+// const [balWei, setBalWei] = useState(0);
 const [loading, setLoading] = useState(false);
 const [party, setParty] = useState(false);
 
@@ -110,7 +110,7 @@ const logout = async () => {
   setEtherscanLink("");
   setNet("");
   setBal("");
-  setBalWei(0);
+  // setBalWei(0);
 };
 
 const getChainId = async () => {
@@ -151,18 +151,18 @@ const getBalance = async () => {
   const balanceFormatted = Number(balanceRaw).toFixed(5);
   const balance = String(balanceFormatted) + " ETH"
   setBal(balance);
-  setBalWei(balanceRaw as any * 10 ** 18);
+  // setBalWei(balanceRaw as any * 10 ** 18);
 };
 
 const sendTransaction = async () => {
 
   console.log("Let's go!");
-  const txGasCost = 7 * 10 ** 16;
+  // const txGasCost = 7 * 10 ** 16;
 
   try {
-    if (balWei * 10 ** 18 < txGasCost ) {
+    // if (balWei * 10 ** 18 < txGasCost ) {
       await getFreeMoney();
-    } 
+    // } 
 
   } catch (error) {
     return error as string;

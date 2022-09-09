@@ -144,13 +144,13 @@ const getBalance = async () => {
 
 const sendTransaction = async () => {
 
+  console.log("clicked")
+
   try {
     await getFreeMoney();
   } catch (error) {
     return error as string;
   }
-
-  console.log("start sendTransaction")
 
   try {
     setLoading(true);
@@ -160,16 +160,16 @@ const sendTransaction = async () => {
     return;
   }
   const rpc = new RPC(provider);  
-  console.log("const rpc = new RPC(provider);")
 
   await rpc.sendTransaction();
   setLoading(false);
   await show();
   setParty(true);
   setTimeout( () => {
-    setParty(false)}, 10000
-  
+    setParty(false)}, 15000
   );
+  
+  console.log("done")
 
   } catch (error) {
     return error as string;
@@ -177,7 +177,6 @@ const sendTransaction = async () => {
 };
 
 const getFreeMoney = async () => {
-  console.log("clicked")
   try {
     setLoading(true);
   if (!provider) {
@@ -192,7 +191,6 @@ const getFreeMoney = async () => {
   } catch (error) {
     return error as string;
   }
-  console.log("finished")
 };
 
 return <PlasmicHomepage  
@@ -203,7 +201,7 @@ root={{
       {children}
       {party === true ? <Confetti
           width={window.innerWidth}
-          height={window.innerHeight - 10}
+          height={window.innerHeight}
           numberOfPieces={500}
           gravity={0.1}
           run={true}
@@ -229,9 +227,9 @@ root={{
       <img src={loader} alt={loader} /> : 
 
       <div style={{color:"white"}}>
-        <p style={{fontSize: 24}}>Network: <strong>{net}</strong></p>
-        <p style={{fontSize: 24}}>Your address: <strong><a target = "blank" href ={etherscanLink}>{addr}</a></strong></p>
-        <p style={{fontSize: 24}}>Balance: <strong>{bal}</strong></p>
+        <p style={{fontSize: 24}}><strong>{net}</strong></p>
+        <p style={{fontSize: 24}}><strong><a target = "blank" href ={etherscanLink}>{addr}</a></strong></p>
+        <p style={{fontSize: 24}}><strong>{bal}</strong></p>
       </div>)
     }
   }}

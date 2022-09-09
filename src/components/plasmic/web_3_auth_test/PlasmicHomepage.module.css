@@ -121,13 +121,14 @@
   position: relative;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   width: 100%;
   height: 332px;
   max-width: 60%;
+  align-self: center;
   min-width: 0;
   flex-shrink: 0;
-  padding: 65px 8px 8px;
+  padding: 38px 8px 8px;
 }
 @media (min-width: 0px) and (max-width: 768px) {
   .sandbox {
@@ -135,36 +136,9 @@
     max-width: 100%;
     padding-bottom: 0px;
     padding-top: 20px;
-    margin-bottom: 73px;
+    margin-bottom: 44px;
     flex-shrink: 0;
   }
-}
-.network {
-  position: relative;
-  width: 100%;
-  height: auto;
-  max-width: 800px;
-  color: var(--token-EiMaujwhg42lV);
-  font-size: 24px;
-  min-width: 0;
-}
-.address {
-  position: relative;
-  width: 100%;
-  height: auto;
-  max-width: 800px;
-  color: var(--token-EiMaujwhg42lV);
-  font-size: 24px;
-  min-width: 0;
-}
-.balance {
-  position: relative;
-  width: 100%;
-  height: auto;
-  max-width: 800px;
-  color: var(--token-EiMaujwhg42lV);
-  font-size: 24px;
-  min-width: 0;
 }
 .freeBox {
   flex-direction: row;
@@ -220,4 +194,38 @@
   object-fit: cover;
   width: 1em;
   height: 1em;
+}
+.text__biUuy {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 403px;
+  align-self: center;
+  text-align: center;
+  font-size: 12px;
+  min-width: 0;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .text__biUuy {
+    max-width: 225px;
+    width: 100%;
+    min-width: 0;
+  }
+}
+.latestTx {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 403px;
+  align-self: center;
+  text-align: center;
+  font-size: 12px;
+  min-width: 0;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .latestTx {
+    max-width: 225px;
+    width: 100%;
+    min-width: 0;
+  }
 }

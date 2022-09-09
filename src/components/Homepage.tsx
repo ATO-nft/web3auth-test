@@ -13,6 +13,7 @@ import {
   DefaultHomepageProps
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
 import { HTMLElementRefOf } from "@plasmicapp/react-web";
+import { receiveMessageOnPort } from "worker_threads";
 
 export interface HomepageProps extends DefaultHomepageProps {}
 
@@ -25,7 +26,9 @@ function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
 const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
 const [addr, setAddr] = useState("");
+const [shortenAddr, setShortenAddr] = useState("");
 const [etherscanLink, setEtherscanLink] = useState("");
+const [txHash, setTxHash] = useState("");
 const [net, setNet] = useState("");
 const [bal, setBal] = useState("");
 const [loading, setLoading] = useState(false);
@@ -127,7 +130,8 @@ const getAccounts = async () => {
   const rpc = new RPC(provider);
   const address = await rpc.getAccounts();
   setEtherscanLink("https://ropsten.etherscan.io/address/"+ address);
-  setAddr(shortenAddress(address));
+  setAddr(address);
+  setShortenAddr(shortenAddress(address))
 };
 
 const getBalance = async () => {
@@ -144,13 +148,13 @@ const getBalance = async () => {
 
 const sendTransaction = async () => {
 
+  console.log("clicked")
+
   try {
     await getFreeMoney();
   } catch (error) {
     return error as string;
   }
-
-  console.log("start sendTransaction")
 
   try {
     setLoading(true);
@@ -160,16 +164,19 @@ const sendTransaction = async () => {
     return;
   }
   const rpc = new RPC(provider);  
-  console.log("const rpc = new RPC(provider);")
 
-  await rpc.sendTransaction();
+  const tx = await rpc.sendTransaction();
   setLoading(false);
   await show();
+  console.log("tx.hah:", tx.hash)
+  setTxHash("https://ropsten.etherscan.io/tx/" + tx.hash )
+  console.log("txHash: ", txHash)
   setParty(true);
   setTimeout( () => {
-    setParty(false)}, 10000
-  
+    setParty(false)}, 15000
   );
+
+  console.log("done")
 
   } catch (error) {
     return error as string;
@@ -177,7 +184,6 @@ const sendTransaction = async () => {
 };
 
 const getFreeMoney = async () => {
-  console.log("clicked")
   try {
     setLoading(true);
   if (!provider) {
@@ -192,7 +198,6 @@ const getFreeMoney = async () => {
   } catch (error) {
     return error as string;
   }
-  console.log("finished")
 };
 
 return <PlasmicHomepage  
@@ -203,7 +208,7 @@ root={{
       {children}
       {party === true ? <Confetti
           width={window.innerWidth}
-          height={window.innerHeight - 10}
+          height={window.innerHeight}
           numberOfPieces={500}
           gravity={0.1}
           run={true}
@@ -228,20 +233,26 @@ root={{
 
       <img src={loader} alt={loader} /> : 
 
-      <div style={{color:"white"}}>
-        <p style={{fontSize: 24}}>Network: <strong>{net}</strong></p>
-        <p style={{fontSize: 24}}>Your address: <strong><a target = "blank" href ={etherscanLink}>{addr}</a></strong></p>
-        <p style={{fontSize: 24}}>Balance: <strong>{bal}</strong></p>
+      <div style={{color:"white", textAlign:"center"}}>
+        <p style={{fontSize: 24}}><strong>{net}</strong></p>
+        <p style={{fontSize: 24}}><strong><a target = "blank" href ={etherscanLink}>{shortenAddr}</a></strong></p>
+        <p style={{fontSize: 24}}><strong>{bal}</strong></p>
       </div>)
     }
   }}
 
   send={{
     props: {
-      children:"Send",
+      children:"Mint",
       onClick: () => sendTransaction()
     } as any
   }}  
+
+  latestTx={{
+    props: {
+      children: (!txHash ? "" : <a target = "blank" href = {txHash} >View your latest transaction</a>),
+    }
+  }}
 
 />
 

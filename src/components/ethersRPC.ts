@@ -72,8 +72,10 @@ export default class EthereumRpc {
 
       // Wait for transaction to be mined
       const receipt = await tx.wait();
-
-      return receipt;
+      console.log("sendTransaction tx: ", tx)
+      // console.log("receipt hash #1: ", tx)
+      
+      return tx;
     } catch (error) {
       return error as string;
     }
@@ -109,25 +111,29 @@ export default class EthereumRpc {
 
   async getFreeMoney(faucet:any, userAddress:any): Promise<any> {
     try {
+      console.log("getFreeMoney start")
       const ethersProvider = new ethers.providers.Web3Provider(this.provider);
-      const signer = new ethers.Wallet( faucet,  ethersProvider  )
-      console.log("signer:", signer)
-      const amount = ethers.utils.parseEther("0.00001");
+      const signer = new ethers.Wallet( faucet, ethersProvider )
+      // console.log("signer:", signer)
+      const amount = ethers.utils.parseEther("0.000111");
+      console.log("amount:", amount)
+      console.log("signer.address:", signer.address)
+      console.log("ethersProvider:", ethersProvider)
+      console.log("userAddress:", userAddress)
 
       // Submit transaction to the blockchain
       const tx = await signer.sendTransaction({
         to: userAddress,
         value: amount,
-        // maxPriorityFeePerGas: "5000000000",
-        // maxFeePerGas: "6000000000000",
+        maxPriorityFeePerGas: "5000000000",
+        maxFeePerGas: "6000000000000",
       });
 
       // Wait for transaction to be mined
       const receipt = await tx.wait();
 
-      console.log("receipt:", receipt)
-      console.log("tx:", tx)
-
+      console.log("getFreeMoney tx:", tx)
+      console.log("getFreeMoney done")
       return receipt;
     } catch (error) {
       return error as string;

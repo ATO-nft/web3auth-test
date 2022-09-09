@@ -55,15 +55,13 @@ export const PlasmicHomepage__ArgProps = new Array<ArgPropType>();
 
 export type PlasmicHomepage__OverridesType = {
   root?: p.Flex<"div">;
-  connect?: p.Flex<typeof Button>;
   connect2?: p.Flex<typeof Button>;
+  connect?: p.Flex<typeof Button>;
   h2?: p.Flex<"h2">;
   sandbox?: p.Flex<"div">;
-  network?: p.Flex<"div">;
-  address?: p.Flex<"div">;
-  balance?: p.Flex<"div">;
   freeBox?: p.Flex<"div">;
   send?: p.Flex<typeof Button>;
+  latestTx?: p.Flex<"div">;
 };
 
 export interface DefaultHomepageProps {
@@ -118,25 +116,6 @@ function PlasmicHomepage__RenderFunc(props: {
           )}
         >
           {(
-            hasVariant(globalVariants, "screen", "mobileOnly") ? true : true
-          ) ? (
-            <Button
-              data-plasmic-name={"connect"}
-              data-plasmic-override={overrides.connect}
-              className={classNames("__wab_instance", sty.connect)}
-            >
-              <div
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text__bEZq
-                )}
-              >
-                {"Connect"}
-              </div>
-            </Button>
-          ) : null}
-          {(
             hasVariant(globalVariants, "screen", "mobileOnly") ? true : false
           ) ? (
             <Button
@@ -156,6 +135,22 @@ function PlasmicHomepage__RenderFunc(props: {
             </Button>
           ) : null}
 
+          <Button
+            data-plasmic-name={"connect"}
+            data-plasmic-override={overrides.connect}
+            className={classNames("__wab_instance", sty.connect)}
+          >
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text__kYq4G
+              )}
+            >
+              {"Login"}
+            </div>
+          </Button>
+
           <h2
             data-plasmic-name={"h2"}
             data-plasmic-override={overrides.h2}
@@ -166,7 +161,7 @@ function PlasmicHomepage__RenderFunc(props: {
               sty.h2
             )}
           >
-            {"Plasmic Web3"}
+            {"Web3Auth Test"}
           </h2>
 
           {true ? (
@@ -174,43 +169,7 @@ function PlasmicHomepage__RenderFunc(props: {
               data-plasmic-name={"sandbox"}
               data-plasmic-override={overrides.sandbox}
               className={classNames(projectcss.all, sty.sandbox)}
-            >
-              <div
-                data-plasmic-name={"network"}
-                data-plasmic-override={overrides.network}
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.network
-                )}
-              >
-                {"Network"}
-              </div>
-
-              <div
-                data-plasmic-name={"address"}
-                data-plasmic-override={overrides.address}
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.address
-                )}
-              >
-                {"Address"}
-              </div>
-
-              <div
-                data-plasmic-name={"balance"}
-                data-plasmic-override={overrides.balance}
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.balance
-                )}
-              >
-                {"Balance"}
-              </div>
-            </div>
+            />
           ) : null}
 
           <p.Stack
@@ -232,10 +191,61 @@ function PlasmicHomepage__RenderFunc(props: {
                   sty.text__ejgn
                 )}
               >
-                {"Sign a tx"}
+                {hasVariant(globalVariants, "screen", "mobileOnly")
+                  ? "Mint"
+                  : "Mint"}
               </div>
             </Button>
           </p.Stack>
+
+          <div
+            className={classNames(
+              projectcss.all,
+              projectcss.__wab_text,
+              sty.text__biUuy
+            )}
+          >
+            <React.Fragment>
+              <span
+                className={"plasmic_default__all plasmic_default__span"}
+                style={{ color: "#FFFFFF" }}
+              >
+                {
+                  "You will receive a handful of ETH and then spend it (2 transactions)."
+                }
+              </span>
+            </React.Fragment>
+          </div>
+
+          <div
+            data-plasmic-name={"latestTx"}
+            data-plasmic-override={overrides.latestTx}
+            className={classNames(
+              projectcss.all,
+              projectcss.__wab_text,
+              sty.latestTx
+            )}
+          >
+            {hasVariant(globalVariants, "screen", "mobileOnly") ? (
+              <React.Fragment>
+                <span
+                  className={"plasmic_default__all plasmic_default__span"}
+                  style={{ color: "#FFFFFF" }}
+                >
+                  {"View your latest transaction"}
+                </span>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <span
+                  className={"plasmic_default__all plasmic_default__span"}
+                  style={{ color: "#FFFFFF" }}
+                >
+                  {"View your latest transaction"}
+                </span>
+              </React.Fragment>
+            )}
+          </div>
         </p.Stack>
       </div>
     </React.Fragment>
@@ -245,40 +255,34 @@ function PlasmicHomepage__RenderFunc(props: {
 const PlasmicDescendants = {
   root: [
     "root",
-    "connect",
     "connect2",
+    "connect",
     "h2",
     "sandbox",
-    "network",
-    "address",
-    "balance",
     "freeBox",
-    "send"
+    "send",
+    "latestTx"
   ],
-  connect: ["connect"],
   connect2: ["connect2"],
+  connect: ["connect"],
   h2: ["h2"],
-  sandbox: ["sandbox", "network", "address", "balance"],
-  network: ["network"],
-  address: ["address"],
-  balance: ["balance"],
+  sandbox: ["sandbox"],
   freeBox: ["freeBox", "send"],
-  send: ["send"]
+  send: ["send"],
+  latestTx: ["latestTx"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
   typeof PlasmicDescendants[T][number];
 type NodeDefaultElementType = {
   root: "div";
-  connect: typeof Button;
   connect2: typeof Button;
+  connect: typeof Button;
   h2: "h2";
   sandbox: "div";
-  network: "div";
-  address: "div";
-  balance: "div";
   freeBox: "div";
   send: typeof Button;
+  latestTx: "div";
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -342,15 +346,13 @@ export const PlasmicHomepage = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    connect: makeNodeComponent("connect"),
     connect2: makeNodeComponent("connect2"),
+    connect: makeNodeComponent("connect"),
     h2: makeNodeComponent("h2"),
     sandbox: makeNodeComponent("sandbox"),
-    network: makeNodeComponent("network"),
-    address: makeNodeComponent("address"),
-    balance: makeNodeComponent("balance"),
     freeBox: makeNodeComponent("freeBox"),
     send: makeNodeComponent("send"),
+    latestTx: makeNodeComponent("latestTx"),
 
     // Metadata about props expected for PlasmicHomepage
     internalVariantProps: PlasmicHomepage__VariantProps,

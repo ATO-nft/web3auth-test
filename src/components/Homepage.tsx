@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { useEffect, useState } from "react";
+// import { ethers } from "ethers";
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./ethersRPC";
@@ -32,6 +33,7 @@ const [etherscanLink, setEtherscanLink] = useState("");
 const [txHash, setTxHash] = useState("");
 const [net, setNet] = useState("");
 const [bal, setBal] = useState("");
+const [balWei, setBalWei] = useState(0);
 const [loading, setLoading] = useState(false);
 const [party, setParty] = useState(false);
 
@@ -104,8 +106,11 @@ const logout = async () => {
   await web3auth.logout();
   setProvider(null);
   setAddr("");
+  setShortenAddr("");
+  setEtherscanLink("");
   setNet("");
   setBal("");
+  setBalWei(0);
 };
 
 const getChainId = async () => {
@@ -132,7 +137,8 @@ const getAccounts = async () => {
   const address = await rpc.getAccounts();
   setEtherscanLink("https://ropsten.etherscan.io/address/"+ address);
   setAddr(address);
-  setShortenAddr(shortenAddress(address))
+  const setShortenAddrString = shortenAddress(String(address))
+  setShortenAddr(setShortenAddrString)
 };
 
 const getBalance = async () => {
@@ -142,20 +148,27 @@ const getBalance = async () => {
   }
   const rpc = new RPC(provider);
   const balanceRaw = await rpc.getBalance();
-  const num1 = Number(balanceRaw).toFixed(5);
-  const balance = String(num1) + " ETH"
+  const balanceFormatted = Number(balanceRaw).toFixed(5);
+  const balance = String(balanceFormatted) + " ETH"
   setBal(balance);
+  setBalWei(balanceRaw as any * 10 ** 18);
 };
 
 const sendTransaction = async () => {
 
-  console.log("clicked")
+  console.log("Let's go!");
+  const txGasCost = 7 * 10 ** 16;
 
   try {
-    await getFreeMoney();
+    if (balWei * 10 ** 18 < txGasCost ) {
+      await getFreeMoney();
+    } 
+
   } catch (error) {
     return error as string;
   }
+
+  console.log("Minting...");
 
   try {
     setLoading(true);
@@ -170,13 +183,12 @@ const sendTransaction = async () => {
   const symbol = "THISTLE";
   const uri = "https://ipfs.io/ipfs/bafybeich4dqhadr2sai2pzxpayjqd62fgt46wdz425zha6aam7ikaluv2q/metadata.json"
 
-  const contract = await rpc.mint(name, symbol, uri);
+  const tx = await rpc.mint(name, symbol, uri);
 
   setLoading(false);
   await show();
-  console.log("contract address:", contract)
-  setTxHash("https://ropsten.etherscan.io/tx/" + contract )
-  console.log("txHash: ", contract)
+  setTxHash("https://ropsten.etherscan.io/tx/" + tx )
+  console.log("txHash: ", tx)
   setParty(true);
   setTimeout( () => {
     setParty(false)}, 15000

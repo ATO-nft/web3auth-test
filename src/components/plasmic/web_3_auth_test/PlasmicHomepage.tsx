@@ -210,9 +210,7 @@ function PlasmicHomepage__RenderFunc(props: {
                 className={"plasmic_default__all plasmic_default__span"}
                 style={{ color: "#FFFFFF" }}
               >
-                {
-                  "You will receive a handful of ETH and then spend it (2 transactions)."
-                }
+                {"You will receive a handful of ETH, then you mint 1 NFT."}
               </span>
             </React.Fragment>
           </div>

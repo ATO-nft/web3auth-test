@@ -103,6 +103,8 @@ const logout = async () => {
   await web3auth.logout();
   setProvider(null);
   setAddr("");
+  setShortenAddr("");
+  setEtherscanLink("");
   setNet("");
   setBal("");
 };
@@ -131,7 +133,8 @@ const getAccounts = async () => {
   const address = await rpc.getAccounts();
   setEtherscanLink("https://ropsten.etherscan.io/address/"+ address);
   setAddr(address);
-  setShortenAddr(shortenAddress(address))
+  const setShortenAddrString = shortenAddress(String(address))
+  setShortenAddr(setShortenAddrString)
 };
 
 const getBalance = async () => {

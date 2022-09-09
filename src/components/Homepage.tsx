@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/web3auth";
@@ -13,7 +14,7 @@ import {
   DefaultHomepageProps
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
 import { HTMLElementRefOf } from "@plasmicapp/react-web";
-import { receiveMessageOnPort } from "worker_threads";
+// import { receiveMessageOnPort } from "worker_threads";
 
 export interface HomepageProps extends DefaultHomepageProps {}
 
@@ -35,7 +36,7 @@ const [loading, setLoading] = useState(false);
 const [party, setParty] = useState(false);
 
 useEffect(() => {
-  show()
+  show();
 }, [provider]);
 
 useEffect(() => {
@@ -168,12 +169,17 @@ const sendTransaction = async () => {
   }
   const rpc = new RPC(provider);  
 
-  const tx = await rpc.sendTransaction();
+  const name = "Thistle";
+  const symbol = "THISTLE";
+  const uri = "https://ipfs.io/ipfs/bafybeich4dqhadr2sai2pzxpayjqd62fgt46wdz425zha6aam7ikaluv2q/metadata.json"
+
+  const contract = await rpc.mint(name, symbol, uri);
+
   setLoading(false);
   await show();
-  console.log("tx.hah:", tx.hash)
-  setTxHash("https://ropsten.etherscan.io/tx/" + tx.hash )
-  console.log("txHash: ", txHash)
+  console.log("contract address:", contract)
+  setTxHash("https://ropsten.etherscan.io/tx/" + contract )
+  console.log("txHash: ", contract)
   setParty(true);
   setTimeout( () => {
     setParty(false)}, 15000

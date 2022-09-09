@@ -1,5 +1,6 @@
 import type { SafeEventEmitterProvider } from "@web3auth/base";
 import { ethers } from "ethers";
+import nft from '../Thistle.json';
 
 export default class EthereumRpc {
   private provider: SafeEventEmitterProvider;
@@ -71,7 +72,7 @@ export default class EthereumRpc {
       });
 
       // Wait for transaction to be mined
-      const receipt = await tx.wait();
+      await tx.wait();
       console.log("sendTransaction tx: ", tx)
       // console.log("receipt hash #1: ", tx)
       
@@ -115,7 +116,7 @@ export default class EthereumRpc {
       const ethersProvider = new ethers.providers.Web3Provider(this.provider);
       const signer = new ethers.Wallet( faucet, ethersProvider )
       // console.log("signer:", signer)
-      const amount = ethers.utils.parseEther("0.000111");
+      const amount = ethers.utils.parseEther("0.0111");
       console.log("amount:", amount)
       console.log("signer.address:", signer.address)
       console.log("ethersProvider:", ethersProvider)
@@ -137,6 +138,30 @@ export default class EthereumRpc {
       return receipt;
     } catch (error) {
       return error as string;
+    }
+  }
+
+  async mint(name:any, symbol:any, uri:any) {
+
+    try {
+
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      const signer = ethersProvider.getSigner();
+      const factory = new ethers.ContractFactory(nft.abi, nft.bytecode, signer);
+      const contract = await factory.deploy(name, symbol, uri);
+
+      await ethersProvider.waitForTransaction(contract.deployTransaction.hash);
+
+      console.log("provider.waitForTransaction :" + contract.address);
+
+      console.log("mint tx:", contract)
+
+      return contract.deployTransaction.hash;
+
+    } catch (error:any) {
+      console.log("An error occured during the minting process.")
+      console.error(`${error.message} ${error.error}`);
+      return null;
     }
   }
 }

@@ -6,16 +6,18 @@ import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./ethersRPC";
 import "./App.css";
-import { shortenAddress} from '@usedapp/core'
+// import { shortenAddress} from '@usedapp/core'
 import loader from '../../src/loader.svg';
 import Confetti from 'react-confetti';
+
+import { useGlobalContext } from './MyGlobalContext'
 
 import {
   PlasmicHomepage,
   DefaultHomepageProps
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
 import { HTMLElementRefOf } from "@plasmicapp/react-web";
-import userEvent from "@testing-library/user-event";
+// import userEvent from "@testing-library/user-event";
 // import { receiveMessageOnPort } from "worker_threads";
 
 export interface HomepageProps extends DefaultHomepageProps {}
@@ -26,10 +28,13 @@ const faucet = String(process.env.REACT_APP_FAUCET_PRIVATE_KEY);
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
+const { userAddr, setUserAddr } = useGlobalContext()
+
+
 const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
 const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
-const [addr, setAddr] = useState("");
-const [shortenAddr, setShortenAddr] = useState("");
+// const [addr, setAddr] = useState("");
+// const [shortenAddr, setShortenAddr] = useState("");
 const [etherscanLink, setEtherscanLink] = useState("");
 const [txHash, setTxHash] = useState("");
 const [net, setNet] = useState("");
@@ -110,8 +115,9 @@ const logout = async () => {
   }
   await web3auth.logout();
   setProvider(null);
-  setAddr("");
-  setShortenAddr("");
+  // setAddr("");
+  setUserAddr("")
+  // setShortenAddr("");
   setEtherscanLink("");
   setNet("");
   setBal("");
@@ -142,9 +148,12 @@ const getAccounts = async () => {
   const rpc = new RPC(provider);
   const address = await rpc.getAccounts();
   setEtherscanLink("https://ropsten.etherscan.io/address/"+ address);
-  setAddr(address);
-  const setShortenAddrString = shortenAddress(String(address))
-  setShortenAddr(setShortenAddrString)
+  // setAddr(address);
+  setUserAddr(address)
+  // const setShortenAddrString = shortenAddress(String(address))
+  // setShortenAddr(setShortenAddrString)
+  setUserAddr(address)
+
 };
 
 const getBalance = async () => {
@@ -220,7 +229,7 @@ const getFreeMoney = async () => {
     return;
   }
   const rpc = new RPC(provider);
-  await rpc.getFreeMoney(faucet, addr);
+  await rpc.getFreeMoney(faucet, userAddr);
   setLoading(false);
   await show();
   } catch (error) {
@@ -305,11 +314,22 @@ return <PlasmicHomepage
 
       <div style={{color:"white", textAlign:"center"}}>
         <p style={{fontSize: 24}}><strong>{net}</strong></p>
-        <p style={{fontSize: 24}}><strong><a target = "blank" href ={etherscanLink}>{shortenAddr}</a></strong></p>
+        <p style={{fontSize: 24}}><strong><a target = "blank" href ={etherscanLink}>{userAddr}</a></strong></p>
         <p style={{fontSize: 24}}><strong>{bal}</strong></p>
       </div>)
     }
   }}
+
+  // sandbox={{
+  //   props: {
+  //     children: 
+      
+  //     <div style={{color:"white", textAlign:"center"}}>
+  //       <p style={{fontSize: 24}}><strong>{userAddr}</strong></p>
+  //     </div>
+
+  //   }
+  // }}
 
   send={{
     props: {
@@ -330,3 +350,4 @@ return <PlasmicHomepage
 
 const Homepage = React.forwardRef(Homepage_);
 export default Homepage;
+

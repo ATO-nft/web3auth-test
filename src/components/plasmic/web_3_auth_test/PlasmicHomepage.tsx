@@ -42,6 +42,7 @@ import sty from "./PlasmicHomepage.module.css"; // plasmic-import: evFdljHsKY7L5
 
 import ChecksvgIcon from "./icons/PlasmicIcon__Checksvg"; // plasmic-import: x5R3V1qKIDRpC/icon
 import IconIcon from "./icons/PlasmicIcon__Icon"; // plasmic-import: jOZ57IuiaExMg/icon
+import anonProfilePicjpegQsrMwUygz from "./images/anonProfilePicjpeg.jpeg"; // plasmic-import: qsrMWUygz/picture
 
 export type PlasmicHomepage__VariantMembers = {};
 
@@ -56,10 +57,10 @@ export const PlasmicHomepage__ArgProps = new Array<ArgPropType>();
 export type PlasmicHomepage__OverridesType = {
   root?: p.Flex<"div">;
   connect2?: p.Flex<typeof Button>;
+  pfp?: p.Flex<typeof p.PlasmicImg>;
   connect?: p.Flex<typeof Button>;
   title?: p.Flex<"h2">;
   sandbox?: p.Flex<"div">;
-  freeBox?: p.Flex<"div">;
   send?: p.Flex<typeof Button>;
   latestTx?: p.Flex<"div">;
 };
@@ -134,22 +135,45 @@ function PlasmicHomepage__RenderFunc(props: {
               </div>
             </Button>
           ) : null}
+          {true ? (
+            <div className={classNames(projectcss.all, sty.freeBox__bGfGl)}>
+              <p.PlasmicImg
+                data-plasmic-name={"pfp"}
+                data-plasmic-override={overrides.pfp}
+                alt={""}
+                className={classNames(sty.pfp)}
+                displayHeight={"40px" as const}
+                displayMaxHeight={"none" as const}
+                displayMaxWidth={"none" as const}
+                displayMinHeight={"0" as const}
+                displayMinWidth={"0" as const}
+                displayWidth={"40px" as const}
+                loading={"lazy" as const}
+                src={{
+                  src: anonProfilePicjpegQsrMwUygz,
+                  fullWidth: 612,
+                  fullHeight: 612,
+                  aspectRatio: undefined
+                }}
+              />
 
-          <Button
-            data-plasmic-name={"connect"}
-            data-plasmic-override={overrides.connect}
-            className={classNames("__wab_instance", sty.connect)}
-          >
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__kYq4G
-              )}
-            >
-              {"Login"}
+              <Button
+                data-plasmic-name={"connect"}
+                data-plasmic-override={overrides.connect}
+                className={classNames("__wab_instance", sty.connect)}
+              >
+                <div
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.__wab_text,
+                    sty.text__kYq4G
+                  )}
+                >
+                  {"Login"}
+                </div>
+              </Button>
             </div>
-          </Button>
+          ) : null}
 
           <h2
             data-plasmic-name={"title"}
@@ -174,10 +198,8 @@ function PlasmicHomepage__RenderFunc(props: {
 
           <p.Stack
             as={"div"}
-            data-plasmic-name={"freeBox"}
-            data-plasmic-override={overrides.freeBox}
             hasGap={true}
-            className={classNames(projectcss.all, sty.freeBox)}
+            className={classNames(projectcss.all, sty.freeBox__pcSnl)}
           >
             <Button
               data-plasmic-name={"send"}
@@ -254,18 +276,18 @@ const PlasmicDescendants = {
   root: [
     "root",
     "connect2",
+    "pfp",
     "connect",
     "title",
     "sandbox",
-    "freeBox",
     "send",
     "latestTx"
   ],
   connect2: ["connect2"],
+  pfp: ["pfp"],
   connect: ["connect"],
   title: ["title"],
   sandbox: ["sandbox"],
-  freeBox: ["freeBox", "send"],
   send: ["send"],
   latestTx: ["latestTx"]
 } as const;
@@ -275,10 +297,10 @@ type DescendantsType<T extends NodeNameType> =
 type NodeDefaultElementType = {
   root: "div";
   connect2: typeof Button;
+  pfp: typeof p.PlasmicImg;
   connect: typeof Button;
   title: "h2";
   sandbox: "div";
-  freeBox: "div";
   send: typeof Button;
   latestTx: "div";
 };
@@ -345,10 +367,10 @@ export const PlasmicHomepage = Object.assign(
   {
     // Helper components rendering sub-elements
     connect2: makeNodeComponent("connect2"),
+    pfp: makeNodeComponent("pfp"),
     connect: makeNodeComponent("connect"),
     title: makeNodeComponent("title"),
     sandbox: makeNodeComponent("sandbox"),
-    freeBox: makeNodeComponent("freeBox"),
     send: makeNodeComponent("send"),
     latestTx: makeNodeComponent("latestTx"),
 

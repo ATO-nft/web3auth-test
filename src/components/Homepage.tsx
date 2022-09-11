@@ -15,6 +15,7 @@ import {
   DefaultHomepageProps
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
 import { HTMLElementRefOf } from "@plasmicapp/react-web";
+import userEvent from "@testing-library/user-event";
 // import { receiveMessageOnPort } from "worker_threads";
 
 export interface HomepageProps extends DefaultHomepageProps {}
@@ -36,7 +37,9 @@ const [bal, setBal] = useState("");
 // const [balWei, setBalWei] = useState(0);
 const [loading, setLoading] = useState(false);
 const [party, setParty] = useState(false);
+const [freeMoney, setFreeMoney] = useState(false);
 const [firstName, setFirstName] = useState("anon");
+const [pfp, setPfp] = useState(loader); 
 
 useEffect(() => {
   show();
@@ -165,6 +168,7 @@ const sendTransaction = async () => {
   try {
     // if (balWei * 10 ** 18 < txGasCost ) {
       await getFreeMoney();
+      
     // } 
 
   } catch (error) {
@@ -175,6 +179,7 @@ const sendTransaction = async () => {
 
   try {
     setLoading(true);
+    setFreeMoney(true); // 有啦！ 
   if (!provider) {
     // console.log("provider not initialized yet");
     setLoading(false);
@@ -194,9 +199,12 @@ const sendTransaction = async () => {
   console.log("txHash: ", tx)
   setParty(true);
   setTimeout( () => {
-    setParty(false)}, 15000
+    setParty(false)
+    setFreeMoney(false)
+  
+  }, 15000
+    
   );
-
   console.log("done")
 
   } catch (error) {
@@ -215,7 +223,6 @@ const getFreeMoney = async () => {
   await rpc.getFreeMoney(faucet, addr);
   setLoading(false);
   await show();
-
   } catch (error) {
     return error as string;
   }
@@ -231,8 +238,10 @@ const getUserInfo = async () => {
     const str = user.name as any
     const first = str.split(' ')[0]
     setFirstName(first)
+    setPfp(user.profileImage as any)
+    // console.log(user.profileImage as any)
   }
-  console.log(user);
+  // console.log(user);
 };
 
 return <PlasmicHomepage  
@@ -241,29 +250,49 @@ return <PlasmicHomepage
     wrapChildren: (children) => (
       <>
         {children}
+
+        {freeMoney === true ? <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={88}
+          gravity={0.025}
+          run={true}
+          tweenDuration={1000}
+          /> : <></>}
+
         {party === true ? <Confetti
-            width={window.innerWidth}
-            height={window.innerHeight}
-            numberOfPieces={500}
-            gravity={0.1}
-            run={true}
-            tweenDuration={1000}
-            /> : <></>}
-      </>
-    )
-  }}
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={500}
+          gravity={0.1}
+          run={true}
+          tweenDuration={1000}
+          /> : <></>}
+        </>
+      )
+    }
+  }
 
   {...props}
 
+  pfp={
+    (provider && {
+      props: {
+        src: pfp
+      }
+    })
+  }
+  
+
   title={{
     props: {
-      children: (!provider ? "Web3Auth test" : "Hello " + firstName + "! 🌈")
+      children: (!provider ? "Web3Auth test" : "Hello " + firstName + "!" + (txHash && " 🌈"))
     }
   }}
 
   connect={{
     props: {
-      children:(!provider ? "Login" : "Logout"),
+      children:(!provider ? "Login " : "Logout"),
       onClick: () => toggle()
     } as any
   }}

@@ -9,6 +9,7 @@ import "./App.css";
 // import { shortenAddress} from '@usedapp/core'
 import loader from '../../src/loader.svg';
 import Confetti from 'react-confetti';
+import YouTube, { YouTubeProps } from 'react-youtube';
 
 import { useGlobalContext } from './MyGlobalContext'
 
@@ -29,6 +30,8 @@ const faucet = String(process.env.REACT_APP_FAUCET_PRIVATE_KEY);
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
 const { userAddr, setUserAddr } = useGlobalContext()
+
+
 
 
 const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
@@ -310,7 +313,7 @@ return <PlasmicHomepage
     props: {
       children: (loading === true ? 
 
-      <img src={loader} alt={loader} /> : 
+      <img src={loader} alt={loader} /> :
 
       <div style={{color:"white", textAlign:"center"}}>
         <p style={{fontSize: 24}}><strong>{net}</strong></p>
@@ -350,4 +353,3 @@ return <PlasmicHomepage
 
 const Homepage = React.forwardRef(Homepage_);
 export default Homepage;
-

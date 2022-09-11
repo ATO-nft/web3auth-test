@@ -36,8 +36,7 @@ const [bal, setBal] = useState("");
 // const [balWei, setBalWei] = useState(0);
 const [loading, setLoading] = useState(false);
 const [party, setParty] = useState(false);
-const [firstName, setFirstName] = useState("darling");
-// const firstName:string = "Julien"
+const [firstName, setFirstName] = useState("anon");
 
 useEffect(() => {
   show();
@@ -113,7 +112,7 @@ const logout = async () => {
   setEtherscanLink("");
   setNet("");
   setBal("");
-  setFirstName("darling")
+  setFirstName("anon")
   // setBalWei(0);
 };
 

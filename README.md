@@ -15,7 +15,7 @@ We want users to interact with Web3 apps **without any wallet** and **without an
 
 #### 2. Clone this repo
 
-Clone this Github repo, cd into it and:
+Fork this Github repo, clone it locally, cd into it and:
 
 ```shell
 npm i
@@ -25,6 +25,7 @@ npm i
 
 ```shell
 plasmic sync
+plasmic watch
 ```
 
 [TODO: [verify these instructions](https://github.com/ATO-nft/web3auth-test/issues/4)]

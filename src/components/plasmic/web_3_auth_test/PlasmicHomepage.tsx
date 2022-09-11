@@ -57,7 +57,7 @@ export type PlasmicHomepage__OverridesType = {
   root?: p.Flex<"div">;
   connect2?: p.Flex<typeof Button>;
   connect?: p.Flex<typeof Button>;
-  h2?: p.Flex<"h2">;
+  title?: p.Flex<"h2">;
   sandbox?: p.Flex<"div">;
   freeBox?: p.Flex<"div">;
   send?: p.Flex<typeof Button>;
@@ -152,13 +152,13 @@ function PlasmicHomepage__RenderFunc(props: {
           </Button>
 
           <h2
-            data-plasmic-name={"h2"}
-            data-plasmic-override={overrides.h2}
+            data-plasmic-name={"title"}
+            data-plasmic-override={overrides.title}
             className={classNames(
               projectcss.all,
               projectcss.h2,
               projectcss.__wab_text,
-              sty.h2
+              sty.title
             )}
           >
             {"Web3Auth Test"}
@@ -255,7 +255,7 @@ const PlasmicDescendants = {
     "root",
     "connect2",
     "connect",
-    "h2",
+    "title",
     "sandbox",
     "freeBox",
     "send",
@@ -263,7 +263,7 @@ const PlasmicDescendants = {
   ],
   connect2: ["connect2"],
   connect: ["connect"],
-  h2: ["h2"],
+  title: ["title"],
   sandbox: ["sandbox"],
   freeBox: ["freeBox", "send"],
   send: ["send"],
@@ -276,7 +276,7 @@ type NodeDefaultElementType = {
   root: "div";
   connect2: typeof Button;
   connect: typeof Button;
-  h2: "h2";
+  title: "h2";
   sandbox: "div";
   freeBox: "div";
   send: typeof Button;
@@ -346,7 +346,7 @@ export const PlasmicHomepage = Object.assign(
     // Helper components rendering sub-elements
     connect2: makeNodeComponent("connect2"),
     connect: makeNodeComponent("connect"),
-    h2: makeNodeComponent("h2"),
+    title: makeNodeComponent("title"),
     sandbox: makeNodeComponent("sandbox"),
     freeBox: makeNodeComponent("freeBox"),
     send: makeNodeComponent("send"),

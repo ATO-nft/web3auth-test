@@ -95,7 +95,7 @@
   width: 1em;
   height: 1em;
 }
-.h2 {
+.title {
   position: relative;
   width: 100%;
   height: auto;
@@ -107,7 +107,7 @@
   min-width: 0;
 }
 @media (min-width: 0px) and (max-width: 768px) {
-  .h2 {
+  .title {
     font-size: 28px;
     max-width: 87.81%;
     width: 100%;

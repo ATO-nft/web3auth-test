@@ -63,6 +63,8 @@ export type PlasmicHomepage__OverridesType = {
   sandbox?: p.Flex<"div">;
   send?: p.Flex<typeof Button>;
   latestTx?: p.Flex<"div">;
+  flush?: p.Flex<typeof Button>;
+  tv?: p.Flex<"div">;
 };
 
 export interface DefaultHomepageProps {
@@ -266,6 +268,35 @@ function PlasmicHomepage__RenderFunc(props: {
               </React.Fragment>
             )}
           </div>
+
+          <Button
+            data-plasmic-name={"flush"}
+            data-plasmic-override={overrides.flush}
+            className={classNames("__wab_instance", sty.flush)}
+            color={
+              hasVariant(globalVariants, "screen", "mobileOnly")
+                ? ("red" as const)
+                : ("red" as const)
+            }
+          >
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text__es8EF
+              )}
+            >
+              {hasVariant(globalVariants, "screen", "mobileOnly")
+                ? "Flush"
+                : "Flush"}
+            </div>
+          </Button>
+
+          <div
+            data-plasmic-name={"tv"}
+            data-plasmic-override={overrides.tv}
+            className={classNames(projectcss.all, sty.tv)}
+          />
         </p.Stack>
       </div>
     </React.Fragment>
@@ -281,7 +312,9 @@ const PlasmicDescendants = {
     "title",
     "sandbox",
     "send",
-    "latestTx"
+    "latestTx",
+    "flush",
+    "tv"
   ],
   connect2: ["connect2"],
   pfp: ["pfp"],
@@ -289,7 +322,9 @@ const PlasmicDescendants = {
   title: ["title"],
   sandbox: ["sandbox"],
   send: ["send"],
-  latestTx: ["latestTx"]
+  latestTx: ["latestTx"],
+  flush: ["flush"],
+  tv: ["tv"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -303,6 +338,8 @@ type NodeDefaultElementType = {
   sandbox: "div";
   send: typeof Button;
   latestTx: "div";
+  flush: typeof Button;
+  tv: "div";
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -373,6 +410,8 @@ export const PlasmicHomepage = Object.assign(
     sandbox: makeNodeComponent("sandbox"),
     send: makeNodeComponent("send"),
     latestTx: makeNodeComponent("latestTx"),
+    flush: makeNodeComponent("flush"),
+    tv: makeNodeComponent("tv"),
 
     // Metadata about props expected for PlasmicHomepage
     internalVariantProps: PlasmicHomepage__VariantProps,

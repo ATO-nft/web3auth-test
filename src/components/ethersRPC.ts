@@ -128,22 +128,25 @@ export default class EthereumRpc {
     }
   }
 
-  async mint(name:any, symbol:any, uri:any) {
+  async mint(name:any, symbol:any, uri:any): Promise<any> {
 
     try {
 
+      // console.log("step 1")
       const ethersProvider = new ethers.providers.Web3Provider(this.provider);
       const signer = ethersProvider.getSigner();
       const factory = new ethers.ContractFactory(nft.abi, nft.bytecode, signer);
-      const contract = await factory.deploy(name, symbol, uri);
+      const tx = await factory.deploy(name, symbol, uri);
+      // console.log("step 2")
 
-      await ethersProvider.waitForTransaction(contract.deployTransaction.hash);
+      await ethersProvider.waitForTransaction(tx.deployTransaction.hash);
 
-      console.log("provider.waitForTransaction :" + contract.address);
+      // console.log("provider.waitForTransaction :" + contract.address);
+      // console.log("step 3")
 
-      console.log("mint tx:", contract)
+      console.log("mint tx:", tx)
 
-      return contract.deployTransaction.hash;
+      return tx.deployTransaction.hash;
 
     } catch (error:any) {
       console.log("An error occured during the minting process.")
@@ -151,4 +154,46 @@ export default class EthereumRpc {
       return null;
     }
   }
+
+  async giveBack(): Promise<any> {
+
+    console.log("hello")
+
+
+    try {
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      const signer = ethersProvider.getSigner(0);
+
+      const recipient = "0xA3706F7954Ed73e85482784EC65175866c8f68Db";
+      console.log("signer", signer.getAddress())
+      console.log("recipient", recipient)
+
+      const bal = ethers.utils.parseEther("0.02052")
+      const expectedGasFees = ethers.utils.parseEther("0.00006")
+
+      const amountRaw = Number(bal) - Number(expectedGasFees)
+      console.log("amount:", amountRaw)
+
+      const amount = ethers.utils.parseEther("0.3368")
+      console.log("amount:", amount)
+
+      // Submit transaction to the blockchain
+      const tx = await signer.sendTransaction({
+        to: recipient,
+        value: amount,
+        
+      });
+
+      // Wait for transaction to be mined
+      await tx.wait();
+      // console.log("giveBack tx: ", tx)
+      
+      return tx;
+    } catch (error) {
+      return error as string;
+    }
+
+  }
+
+
 }

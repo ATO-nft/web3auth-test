@@ -9,9 +9,10 @@ import { MyGlobalContext } from './components/MyGlobalContext'
 function Index() {
 
   const [userAddr, setUserAddr] = useState<string>("")
+  const [userShortenAddr, setShortenAddr] = useState<string>("")
 
   return (
-    <MyGlobalContext.Provider value={{ userAddr, setUserAddr }}>
+    <MyGlobalContext.Provider value={{ userAddr, setUserAddr, userShortenAddr, setShortenAddr }}>
       <Homepage />
     </MyGlobalContext.Provider>
   );

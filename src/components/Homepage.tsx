@@ -9,7 +9,7 @@ import "./App.css";
 // import { shortenAddress} from '@usedapp/core'
 import loader from '../../src/loader.svg';
 import Confetti from 'react-confetti';
-import YouTube, { YouTubeProps } from 'react-youtube';
+// import YouTube, { YouTubeProps } from 'react-youtube';
 
 import { useGlobalContext } from './MyGlobalContext'
 

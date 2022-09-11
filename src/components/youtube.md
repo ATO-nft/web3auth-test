@@ -1,8 +1,13 @@
+## YouTube
+
+https://www.npmjs.com/package/react-youtube
+
+```ts
 const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     // access to player in all event handlers via event.target
     event.target.playVideo();
   }
-  
+
   const opts: YouTubeProps['opts'] = {
     height: '150',
     width: '300',
@@ -15,3 +20,4 @@ const onPlayerReady: YouTubeProps['onReady'] = (event) => {
 
 
   <YouTube videoId="TB54dZkzZOY" opts={opts} onReady={onPlayerReady} />  :
+```

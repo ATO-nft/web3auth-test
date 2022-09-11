@@ -6,9 +6,12 @@ import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./ethersRPC";
 import "./App.css";
-import { shortenAddress} from '@usedapp/core'
+// import { shortenAddress} from '@usedapp/core'
 import loader from '../../src/loader.svg';
 import Confetti from 'react-confetti';
+import YouTube, { YouTubeProps } from 'react-youtube';
+
+import { useGlobalContext } from './MyGlobalContext'
 
 import {
   PlasmicHomepage,
@@ -16,7 +19,8 @@ import {
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
 import { HTMLElementRefOf } from "@plasmicapp/react-web";
 import userEvent from "@testing-library/user-event";
-// import { receiveMessageOnPort } from "worker_threads";
+import { receiveMessageOnPort } from "worker_threads";
+import { flushSync } from "react-dom";
 
 export interface HomepageProps extends DefaultHomepageProps {}
 
@@ -26,10 +30,12 @@ const faucet = String(process.env.REACT_APP_FAUCET_PRIVATE_KEY);
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
+const { userAddr, setUserAddr, userShortenAddr, setShortenAddr } = useGlobalContext()
+
 const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
 const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
-const [addr, setAddr] = useState("");
-const [shortenAddr, setShortenAddr] = useState("");
+// const [addr, setAddr] = useState("");
+// const [shortenAddr, setShortenAddr] = useState("");
 const [etherscanLink, setEtherscanLink] = useState("");
 const [txHash, setTxHash] = useState("");
 const [net, setNet] = useState("");
@@ -40,6 +46,20 @@ const [party, setParty] = useState(false);
 const [freeMoney, setFreeMoney] = useState(false);
 const [firstName, setFirstName] = useState("anon");
 const [pfp, setPfp] = useState(loader); 
+
+const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+  // access to player in all event handlers via event.target
+  event.target.playVideo();
+}
+
+const opts: YouTubeProps['opts'] = {
+  height: '150',
+  width: '300',
+  playerVars: {
+    // https://developers.google.com/youtube/player_parameters
+    autoplay: 1,
+  },
+};
 
 useEffect(() => {
   show();
@@ -110,7 +130,8 @@ const logout = async () => {
   }
   await web3auth.logout();
   setProvider(null);
-  setAddr("");
+  // setAddr("");
+  setUserAddr("")
   setShortenAddr("");
   setEtherscanLink("");
   setNet("");
@@ -142,9 +163,12 @@ const getAccounts = async () => {
   const rpc = new RPC(provider);
   const address = await rpc.getAccounts();
   setEtherscanLink("https://ropsten.etherscan.io/address/"+ address);
-  setAddr(address);
-  const setShortenAddrString = shortenAddress(String(address))
-  setShortenAddr(setShortenAddrString)
+  // setAddr(address);
+  setUserAddr(address)
+  // const setShortenAddrString = shortenAddress(String(address))
+  // setShortenAddr(setShortenAddrString)
+  setUserAddr(address)
+
 };
 
 const getBalance = async () => {
@@ -182,7 +206,6 @@ const sendTransaction = async () => {
     setFreeMoney(true); // 有啦！ 
   if (!provider) {
     // console.log("provider not initialized yet");
-    setLoading(false);
     return;
   }
   const rpc = new RPC(provider);  
@@ -193,11 +216,11 @@ const sendTransaction = async () => {
 
   const tx = await rpc.mint(name, symbol, uri);
 
-  setLoading(false);
   await show();
   setTxHash("https://ropsten.etherscan.io/tx/" + tx )
   console.log("txHash: ", tx)
   setParty(true);
+  setLoading(false);
   setTimeout( () => {
     setParty(false)
     setFreeMoney(false)
@@ -220,7 +243,7 @@ const getFreeMoney = async () => {
     return;
   }
   const rpc = new RPC(provider);
-  await rpc.getFreeMoney(faucet, addr);
+  await rpc.getFreeMoney(faucet, userAddr);
   setLoading(false);
   await show();
   } catch (error) {
@@ -239,9 +262,27 @@ const getUserInfo = async () => {
     const first = str.split(' ')[0]
     setFirstName(first)
     setPfp(user.profileImage as any)
-    // console.log(user.profileImage as any)
   }
   // console.log(user);
+};
+
+const giveBack = async () => {
+  setLoading(true);
+
+  if (!provider) {
+    // console.log("provider not initialized yet");
+    return;
+  }
+  if (!web3auth) {
+    // console.log("provider not initialized yet");
+    return;
+  }
+  const rpc = new RPC(provider);
+  // await rpc.getFreeMoney(faucet, userAddr);
+  const result = await rpc.giveBack();
+  console.log(result)
+  getBalance()
+  setLoading(false);
 };
 
 return <PlasmicHomepage  
@@ -279,10 +320,25 @@ return <PlasmicHomepage
     (provider && {
       props: {
         src: pfp
-      }
-    })
+      }}
+    )
   }
+
+  tv={{
+    render: () => (loading === true  || txHash ? 
+      <YouTube style={{display:"none"}} videoId="UGCXKmAB3YQ" opts={opts} onReady={onPlayerReady} /> : ""
+    )
+  }}
   
+  flush={{
+    props: {
+      // children:(!provider ? "Login " : "Logout"),
+      onClick: () => giveBack(),
+      // 
+      // render: () => null
+    },
+    render: () => (txHash ? "" : null) // don't work as expected
+  }}
 
   title={{
     props: {
@@ -301,11 +357,14 @@ return <PlasmicHomepage
     props: {
       children: (loading === true ? 
 
-      <img src={loader} alt={loader} /> : 
+      <><img src={loader} alt={loader} /> 
+      {/* <YouTube style={{display:"none"}} videoId="TB54dZkzZOY" opts={opts} onReady={onPlayerReady} /></>  : */}
+      {/* <YouTube style={{display:"none"}} videoId="rcAv1cGAeXE" opts={opts} onReady={onPlayerReady} /> */}
+      </>  :
 
       <div style={{color:"white", textAlign:"center"}}>
         <p style={{fontSize: 24}}><strong>{net}</strong></p>
-        <p style={{fontSize: 24}}><strong><a target = "blank" href ={etherscanLink}>{shortenAddr}</a></strong></p>
+        <p style={{fontSize: 24}}><strong><a target = "blank" href ={etherscanLink}>{userShortenAddr}</a></strong></p>
         <p style={{fontSize: 24}}><strong>{bal}</strong></p>
       </div>)
     }

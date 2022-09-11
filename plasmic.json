@@ -99,6 +99,11 @@
           "id": "giW_NORDPg6I9",
           "name": "thistle.jpeg",
           "filePath": "plasmic/web_3_auth_test/images/thistlejpeg.jpeg"
+        },
+        {
+          "id": "qsrMWUygz",
+          "name": "anon-profile-pic.jpeg",
+          "filePath": "plasmic/web_3_auth_test/images/anonProfilePicjpeg.jpeg"
         }
       ],
       "indirect": false,

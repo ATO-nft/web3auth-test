@@ -15,6 +15,7 @@ import {
   DefaultHomepageProps
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
 import { HTMLElementRefOf } from "@plasmicapp/react-web";
+import userEvent from "@testing-library/user-event";
 // import { receiveMessageOnPort } from "worker_threads";
 
 export interface HomepageProps extends DefaultHomepageProps {}
@@ -36,6 +37,9 @@ const [bal, setBal] = useState("");
 // const [balWei, setBalWei] = useState(0);
 const [loading, setLoading] = useState(false);
 const [party, setParty] = useState(false);
+const [freeMoney, setFreeMoney] = useState(false);
+const [firstName, setFirstName] = useState("anon");
+const [pfp, setPfp] = useState(loader); 
 
 useEffect(() => {
   show();
@@ -85,22 +89,23 @@ const show = async () => {
   getAccounts();
   getChainId();
   getBalance();
+  getUserInfo();
 }
 
 const login = async () => {
   if (!web3auth) {
-    console.log("web3auth not initialized yet");
+    // console.log("web3auth not initialized yet");
     return;
   }
   const web3authProvider = await web3auth.connect();
   setProvider(web3authProvider);
-  console.log("web3authProvider: ", web3authProvider);
+  // console.log("web3authProvider: ", web3authProvider);
   await show();
 };
 
 const logout = async () => {
   if (!web3auth) {
-    console.log("web3auth not initialized yet");
+    // console.log("web3auth not initialized yet");
     return;
   }
   await web3auth.logout();
@@ -110,12 +115,13 @@ const logout = async () => {
   setEtherscanLink("");
   setNet("");
   setBal("");
+  setFirstName("anon")
   // setBalWei(0);
 };
 
 const getChainId = async () => {
   if (!provider) {
-    console.log("provider not initialized yet");
+    // console.log("provider not initialized yet");
     return;
   }
   const rpc = new RPC(provider);
@@ -130,7 +136,7 @@ const getChainId = async () => {
 
 const getAccounts = async () => {
   if (!provider) {
-    console.log("provider not initialized yet");
+    // console.log("provider not initialized yet");
     return;
   }
   const rpc = new RPC(provider);
@@ -143,7 +149,7 @@ const getAccounts = async () => {
 
 const getBalance = async () => {
   if (!provider) {
-    console.log("provider not initialized yet");
+    // console.log("provider not initialized yet");
     return;
   }
   const rpc = new RPC(provider);
@@ -162,6 +168,7 @@ const sendTransaction = async () => {
   try {
     // if (balWei * 10 ** 18 < txGasCost ) {
       await getFreeMoney();
+      
     // } 
 
   } catch (error) {
@@ -172,8 +179,9 @@ const sendTransaction = async () => {
 
   try {
     setLoading(true);
+    setFreeMoney(true); // 有啦！ 
   if (!provider) {
-    console.log("provider not initialized yet");
+    // console.log("provider not initialized yet");
     setLoading(false);
     return;
   }
@@ -191,9 +199,12 @@ const sendTransaction = async () => {
   console.log("txHash: ", tx)
   setParty(true);
   setTimeout( () => {
-    setParty(false)}, 15000
+    setParty(false)
+    setFreeMoney(false)
+  
+  }, 15000
+    
   );
-
   console.log("done")
 
   } catch (error) {
@@ -205,26 +216,51 @@ const getFreeMoney = async () => {
   try {
     setLoading(true);
   if (!provider) {
-    console.log("provider not initialized yet");
+    // console.log("provider not initialized yet");
     return;
   }
   const rpc = new RPC(provider);
   await rpc.getFreeMoney(faucet, addr);
   setLoading(false);
   await show();
-
   } catch (error) {
     return error as string;
   }
 };
 
+const getUserInfo = async () => {
+  if (!web3auth) {
+    // console.log("web3auth not initialized yet");
+    return;
+  }
+  const user = await web3auth.getUserInfo();
+  if (user) {
+    const str = user.name as any
+    const first = str.split(' ')[0]
+    setFirstName(first)
+    setPfp(user.profileImage as any)
+    // console.log(user.profileImage as any)
+  }
+  // console.log(user);
+};
+
 return <PlasmicHomepage  
   
-root={{
-  wrapChildren: (children) => (
-    <>
-      {children}
-      {party === true ? <Confetti
+  root={{
+    wrapChildren: (children) => (
+      <>
+        {children}
+
+        {freeMoney === true ? <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={88}
+          gravity={0.025}
+          run={true}
+          tweenDuration={1000}
+          /> : <></>}
+
+        {party === true ? <Confetti
           width={window.innerWidth}
           height={window.innerHeight}
           numberOfPieces={500}
@@ -232,15 +268,31 @@ root={{
           run={true}
           tweenDuration={1000}
           /> : <></>}
-    </>
-  )
-}}
+        </>
+      )
+    }
+  }
 
-{...props}
+  {...props}
+
+  pfp={
+    (provider && {
+      props: {
+        src: pfp
+      }
+    })
+  }
+  
+
+  title={{
+    props: {
+      children: (!provider ? "Web3Auth test" : "Hello " + firstName + "!" + (txHash && " 🌈"))
+    }
+  }}
 
   connect={{
     props: {
-      children:(!provider ? "Login" : "Logout"),
+      children:(!provider ? "Login " : "Logout"),
       onClick: () => toggle()
     } as any
   }}

@@ -6,7 +6,7 @@ import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./ethersRPC";
 import "./App.css";
-// import { shortenAddress} from '@usedapp/core'
+import { shortenAddress} from '@usedapp/core'
 import loader from '../../src/loader.svg';
 import Confetti from 'react-confetti';
 import YouTube, { YouTubeProps } from 'react-youtube';
@@ -165,8 +165,8 @@ const getAccounts = async () => {
   setEtherscanLink("https://ropsten.etherscan.io/address/"+ address);
   // setAddr(address);
   setUserAddr(address)
-  // const setShortenAddrString = shortenAddress(String(address))
-  // setShortenAddr(setShortenAddrString)
+  const setShortenAddrString = shortenAddress(String(address))
+  setShortenAddr(setShortenAddrString)
   setUserAddr(address)
 
 };

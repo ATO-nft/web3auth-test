@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/web3auth";
-import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { CHAIN_NAMESPACES/*, SafeEventEmitterProvider*/ } from "@web3auth/base";
 import RPC from "./ethersRPC";
 import "./App.css";
 import { shortenAddress} from '@usedapp/core'
@@ -10,16 +10,16 @@ import loader from '../../src/loader.svg';
 import Confetti from 'react-confetti';
 import YouTube, { YouTubeProps } from 'react-youtube';
 
-import { useGlobalContext } from './Web3Context'
+import { useGlobalContext } from './Web3Context';
 
 import {
   PlasmicHomepage,
   DefaultHomepageProps
 } from "./plasmic/web_3_auth_test/PlasmicHomepage";
 import { HTMLElementRefOf } from "@plasmicapp/react-web";
-import userEvent from "@testing-library/user-event";
-import { receiveMessageOnPort } from "worker_threads";
-import { flushSync } from "react-dom";
+//import userEvent from "@testing-library/user-event";
+//import { receiveMessageOnPort } from "worker_threads";
+//import { flushSync } from "react-dom";
 
 export interface HomepageProps extends DefaultHomepageProps {}
 
@@ -28,14 +28,23 @@ const endpoint = String(process.env.REACT_APP_RPC_URL);
 const faucet = String(process.env.REACT_APP_FAUCET_PRIVATE_KEY);
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
+  //const authCtxt = useContext(Web3Context);
+  //const userAddr = authCtxt.addr;
 
-const { 
-  userAddr, 
-  setUserAddr,
-  userShortenAddr, 
-  setShortenAddr 
+  const { 
+  userAddr, setUserAddr,
+  userShortenAddr, setShortenAddr,
+  web3auth, setWeb3auth,
+  provider, setProvider,
+  etherscanLink, setEtherscanLink,
+  txHash, setTxHash,
+  net, setNet,
+  bal, setBal,
+  firstName, setFirstName,
+  pfp, setPfp
 } = useGlobalContext()
 
+/*
 const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
 const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
 // const [addr, setAddr] = useState("");
@@ -45,11 +54,12 @@ const [txHash, setTxHash] = useState("");
 const [net, setNet] = useState("");
 const [bal, setBal] = useState("");
 // const [balWei, setBalWei] = useState(0);
+const [firstName, setFirstName] = useState("anon");
+const [pfp, setPfp] = useState(loader); 
+*/
 const [loading, setLoading] = useState(false);
 const [party, setParty] = useState(false);
 const [freeMoney, setFreeMoney] = useState(false);
-const [firstName, setFirstName] = useState("anon");
-const [pfp, setPfp] = useState(loader); 
 
 const onPlayerReady: YouTubeProps['onReady'] = (event) => {
   // access to player in all event handlers via event.target

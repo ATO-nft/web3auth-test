@@ -174,7 +174,7 @@ export default class EthereumRpc {
       const amountRaw = Number(bal) - Number(expectedGasFees)
       console.log("amount:", amountRaw)
 
-      const amount = ethers.utils.parseEther("0.3368")
+      const amount = ethers.utils.parseEther("0.0135")
       console.log("amount:", amount)
 
       // Submit transaction to the blockchain

@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { useEffect, useState } from "react";
-// import { ethers } from "ethers";
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "./ethersRPC";
@@ -11,7 +10,7 @@ import loader from '../../src/loader.svg';
 import Confetti from 'react-confetti';
 import YouTube, { YouTubeProps } from 'react-youtube';
 
-import { useGlobalContext } from './MyGlobalContext'
+import { useGlobalContext } from './Web3Context'
 
 import {
   PlasmicHomepage,
@@ -30,7 +29,12 @@ const faucet = String(process.env.REACT_APP_FAUCET_PRIVATE_KEY);
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<"div">) {
 
-const { userAddr, setUserAddr, userShortenAddr, setShortenAddr } = useGlobalContext()
+const { 
+  userAddr, 
+  setUserAddr,
+  userShortenAddr, 
+  setShortenAddr 
+} = useGlobalContext()
 
 const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
 const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
@@ -137,6 +141,7 @@ const logout = async () => {
   setNet("");
   setBal("");
   setFirstName("anon")
+  setPfp("")
   // setBalWei(0);
 };
 
@@ -296,9 +301,9 @@ return <PlasmicHomepage
           width={window.innerWidth}
           height={window.innerHeight}
           numberOfPieces={88}
-          gravity={0.025}
+          gravity={0.015}
           run={true}
-          tweenDuration={1000}
+          tweenDuration={600}
           /> : <></>}
 
         {party === true ? <Confetti

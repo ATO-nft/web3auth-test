@@ -137,7 +137,7 @@
     font-size: 28px;
     max-width: 87.81%;
     width: 100%;
-    padding-top: 30px;
+    padding-top: 25px;
     margin-top: calc(0px + 16px) !important;
     min-width: 0;
   }
@@ -161,8 +161,8 @@
     height: 247px;
     max-width: 100%;
     padding-bottom: 0px;
-    padding-top: 20px;
-    margin-bottom: 44px;
+    padding-top: 9px;
+    margin-bottom: 2px;
     flex-shrink: 0;
   }
 }

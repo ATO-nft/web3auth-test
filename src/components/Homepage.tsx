@@ -46,20 +46,21 @@ const [party, setParty] = useState(false);
 const [freeMoney, setFreeMoney] = useState(false);
 const [firstName, setFirstName] = useState("anon");
 const [pfp, setPfp] = useState(loader); 
+const [pleaseLogin, setPleaseLogin] = useState(false)
 
-const onPlayerReady: YouTubeProps['onReady'] = (event) => {
-  // access to player in all event handlers via event.target
-  event.target.playVideo();
-}
+// const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+//   // access to player in all event handlers via event.target
+//   event.target.playVideo();
+// }
 
-const opts: YouTubeProps['opts'] = {
-  height: '150',
-  width: '300',
-  playerVars: {
-    // https://developers.google.com/youtube/player_parameters
-    autoplay: 1,
-  },
-};
+// const opts: YouTubeProps['opts'] = {
+//   height: '150',
+//   width: '300',
+//   playerVars: {
+//     // https://developers.google.com/youtube/player_parameters
+//     autoplay: 1,
+//   },
+// };
 
 useEffect(() => {
   show();
@@ -121,6 +122,7 @@ const login = async () => {
   setProvider(web3authProvider);
   // console.log("web3authProvider: ", web3authProvider);
   await show();
+  setPleaseLogin(false);
 };
 
 const logout = async () => {
@@ -162,7 +164,7 @@ const getAccounts = async () => {
   }
   const rpc = new RPC(provider);
   const address = await rpc.getAccounts();
-  setEtherscanLink("https://ropsten.etherscan.io/address/"+ address);
+  setEtherscanLink("https://ropsten.etherscan.io/address/" + address);
   // setAddr(address);
   setUserAddr(address)
   const setShortenAddrString = shortenAddress(String(address))
@@ -188,6 +190,10 @@ const sendTransaction = async () => {
 
   console.log("Let's go!");
   // const txGasCost = 7 * 10 ** 16;
+
+  // if (provider === null) {
+  //   return;
+  // }
 
   try {
     // if (balWei * 10 ** 18 < txGasCost ) {
@@ -324,11 +330,11 @@ return <PlasmicHomepage
     )
   }
 
-  tv={{
-    render: () => (loading === true  || txHash ? 
-      <YouTube style={{display:"none"}} videoId="UGCXKmAB3YQ" opts={opts} onReady={onPlayerReady} /> : ""
-    )
-  }}
+  // tv={{
+  //   render: () => (loading === true  || txHash ? 
+  //     <YouTube style={{display:"none"}} videoId="UGCXKmAB3YQ" opts={opts} onReady={onPlayerReady} /> : ""
+  //   )
+  // }}
   
   flush={{
     props: {
@@ -367,19 +373,20 @@ return <PlasmicHomepage
         <p style={{fontSize: 24}}><strong><a target = "blank" href ={etherscanLink}>{userShortenAddr}</a></strong></p>
         <p style={{fontSize: 24}}><strong>{bal}</strong></p>
       </div>)
+
     }
   }}
 
   send={{
     props: {
-      children:"Mint",
-      onClick: () => sendTransaction()
+      children: "Mint",
+      onClick: (provider ? () => sendTransaction() : () => setPleaseLogin(true))
     } as any
   }}  
 
   latestTx={{
     props: {
-      children: (!txHash ? "" : <a target = "blank" href = {txHash} >View your latest transaction</a>),
+      children: (!txHash ? (pleaseLogin === true && <p style={{color:"red", fontWeight: 'bold'}}>Please login first.</p>) : <a target = "blank" href = {txHash} style={{fontWeight: 'bold'}} >View your latest transaction</a>),
     }
   }}
 

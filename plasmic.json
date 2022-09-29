@@ -104,6 +104,11 @@
           "id": "qsrMWUygz",
           "name": "anon-profile-pic.jpeg",
           "filePath": "plasmic/web_3_auth_test/images/anonProfilePicjpeg.jpeg"
+        },
+        {
+          "id": "g_NkqtGId",
+          "name": "image",
+          "filePath": "plasmic/web_3_auth_test/images/image.png"
         }
       ],
       "indirect": false,
@@ -113,6 +118,11 @@
           "id": "wqCy8LFEO54gw",
           "name": "PlasmicHead",
           "componentImportPath": "@plasmicapp/react-web"
+        },
+        {
+          "id": "5XEKwVEn7G",
+          "name": "Fetcher",
+          "componentImportPath": "@plasmicapp/data-sources"
         }
       ]
     }

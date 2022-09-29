@@ -14,42 +14,42 @@
         {
           "type": "renderModule",
           "assetId": "evFdljHsKY7L5",
-          "checksum": "d7ee94d39c47ec419292ae4be22b7464"
+          "checksum": "6678ecce3d560aa8a49950e9ae132117"
         },
         {
           "type": "cssRules",
           "assetId": "evFdljHsKY7L5",
-          "checksum": "d7ee94d39c47ec419292ae4be22b7464"
+          "checksum": "6678ecce3d560aa8a49950e9ae132117"
         },
         {
           "type": "renderModule",
           "assetId": "2absIEKb81Nff",
-          "checksum": "1c588b72ddbe357035975a464a48d7e7"
+          "checksum": "f3a9cd71406c1e971fef40c0c1eceac7"
         },
         {
           "type": "cssRules",
           "assetId": "2absIEKb81Nff",
-          "checksum": "1c588b72ddbe357035975a464a48d7e7"
+          "checksum": "f3a9cd71406c1e971fef40c0c1eceac7"
         },
         {
           "type": "renderModule",
           "assetId": "y6oMpGPQpSdLN",
-          "checksum": "f186dd0a53196460db1273ae2d65c878"
+          "checksum": "3bd954e8e04d011957b59503c00d2635"
         },
         {
           "type": "cssRules",
           "assetId": "y6oMpGPQpSdLN",
-          "checksum": "f186dd0a53196460db1273ae2d65c878"
+          "checksum": "3bd954e8e04d011957b59503c00d2635"
         },
         {
           "type": "renderModule",
           "assetId": "gSxAtSkc_B2bx",
-          "checksum": "18486bc69e3a8811f127e443bc0284fd"
+          "checksum": "b49a36f471dcaa92f7ce243b234cb8aa"
         },
         {
           "type": "cssRules",
           "assetId": "gSxAtSkc_B2bx",
-          "checksum": "18486bc69e3a8811f127e443bc0284fd"
+          "checksum": "b49a36f471dcaa92f7ce243b234cb8aa"
         },
         {
           "type": "icon",
@@ -70,6 +70,11 @@
           "type": "image",
           "assetId": "qsrMWUygz",
           "checksum": "3d09250192f8ff7ba54a542f1bc739d6"
+        },
+        {
+          "type": "image",
+          "assetId": "g_NkqtGId",
+          "checksum": "a383be6da9736bcc658a9b2b640e30b3"
         },
         {
           "assetId": "54HMz7Hvd2hKuAsezVhBVr",

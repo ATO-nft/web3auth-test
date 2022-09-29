@@ -43,6 +43,7 @@ import sty from "./PlasmicHomepage.module.css"; // plasmic-import: evFdljHsKY7L5
 import ChecksvgIcon from "./icons/PlasmicIcon__Checksvg"; // plasmic-import: x5R3V1qKIDRpC/icon
 import IconIcon from "./icons/PlasmicIcon__Icon"; // plasmic-import: jOZ57IuiaExMg/icon
 import anonProfilePicjpegQsrMwUygz from "./images/anonProfilePicjpeg.jpeg"; // plasmic-import: qsrMWUygz/picture
+import imageGNkqtGId from "./images/image.png"; // plasmic-import: g_NkqtGId/picture
 
 export type PlasmicHomepage__VariantMembers = {};
 
@@ -63,6 +64,9 @@ export type PlasmicHomepage__OverridesType = {
   sandbox?: p.Flex<"div">;
   send?: p.Flex<typeof Button>;
   latestTx?: p.Flex<"div">;
+  img?: p.Flex<typeof p.PlasmicImg>;
+  flush?: p.Flex<typeof Button>;
+  tv?: p.Flex<"div">;
 };
 
 export interface DefaultHomepageProps {
@@ -89,7 +93,10 @@ function PlasmicHomepage__RenderFunc(props: {
     [props.args]
   );
 
-  const $props = args;
+  const $props = {
+    ...args,
+    ...variants
+  };
 
   const globalVariants = ensureGlobalVariants({
     screen: useScreenVariantsdYbhPAqG0G9Hu()
@@ -266,6 +273,82 @@ function PlasmicHomepage__RenderFunc(props: {
               </React.Fragment>
             )}
           </div>
+
+          {true ? (
+            <div className={classNames(projectcss.all, sty.freeBox__jCp7L)}>
+              <a
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  projectcss.__wab_text,
+                  sty.link__zdrhn
+                )}
+                href={"https://github.com/ATO-nft/web3auth-test" as const}
+                target={"_blank" as const}
+              >
+                {"View source code on Github"}
+              </a>
+
+              <a
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  sty.link___3ExTj
+                )}
+                href={"https://github.com/ATO-nft/web3auth-test" as const}
+                target={"_blank" as const}
+              >
+                <p.PlasmicImg
+                  data-plasmic-name={"img"}
+                  data-plasmic-override={overrides.img}
+                  alt={""}
+                  className={classNames(sty.img)}
+                  displayHeight={"14px" as const}
+                  displayMaxHeight={"none" as const}
+                  displayMaxWidth={"100%" as const}
+                  displayMinHeight={"0" as const}
+                  displayMinWidth={"0" as const}
+                  displayWidth={"14px" as const}
+                  loading={"lazy" as const}
+                  src={{
+                    src: imageGNkqtGId,
+                    fullWidth: 225,
+                    fullHeight: 225,
+                    aspectRatio: undefined
+                  }}
+                />
+              </a>
+            </div>
+          ) : null}
+
+          <Button
+            data-plasmic-name={"flush"}
+            data-plasmic-override={overrides.flush}
+            className={classNames("__wab_instance", sty.flush)}
+            color={
+              hasVariant(globalVariants, "screen", "mobileOnly")
+                ? ("red" as const)
+                : ("red" as const)
+            }
+          >
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text__es8EF
+              )}
+            >
+              {hasVariant(globalVariants, "screen", "mobileOnly")
+                ? "Flush"
+                : "Flush"}
+            </div>
+          </Button>
+
+          <div
+            data-plasmic-name={"tv"}
+            data-plasmic-override={overrides.tv}
+            className={classNames(projectcss.all, sty.tv)}
+          />
         </p.Stack>
       </div>
     </React.Fragment>
@@ -281,7 +364,10 @@ const PlasmicDescendants = {
     "title",
     "sandbox",
     "send",
-    "latestTx"
+    "latestTx",
+    "img",
+    "flush",
+    "tv"
   ],
   connect2: ["connect2"],
   pfp: ["pfp"],
@@ -289,7 +375,10 @@ const PlasmicDescendants = {
   title: ["title"],
   sandbox: ["sandbox"],
   send: ["send"],
-  latestTx: ["latestTx"]
+  latestTx: ["latestTx"],
+  img: ["img"],
+  flush: ["flush"],
+  tv: ["tv"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -303,6 +392,9 @@ type NodeDefaultElementType = {
   sandbox: "div";
   send: typeof Button;
   latestTx: "div";
+  img: typeof p.PlasmicImg;
+  flush: typeof Button;
+  tv: "div";
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -373,10 +465,22 @@ export const PlasmicHomepage = Object.assign(
     sandbox: makeNodeComponent("sandbox"),
     send: makeNodeComponent("send"),
     latestTx: makeNodeComponent("latestTx"),
+    img: makeNodeComponent("img"),
+    flush: makeNodeComponent("flush"),
+    tv: makeNodeComponent("tv"),
 
     // Metadata about props expected for PlasmicHomepage
     internalVariantProps: PlasmicHomepage__VariantProps,
-    internalArgProps: PlasmicHomepage__ArgProps
+    internalArgProps: PlasmicHomepage__ArgProps,
+
+    // Page metadata
+    pageMetadata: {
+      title: "Web3 Playground",
+      description: "",
+      ogImageSrc:
+        "https://site-assets.plasmic.app/9e90a286de331920d9eb7414a6c88379.jpg",
+      canonical: ""
+    }
   }
 );
 
